@@ -19,6 +19,7 @@ import {
 import { ReactNode, useRef, useState } from "react";
 
 const SHOP_URL = "https://shop.tiktok.com/us/pdp/1732474986384560309";
+const TIKTOK_PROFILE_URL = "https://www.tiktok.com/@sanni.co2";
 
 const heroCampaigns = [
   { name: "Soft Blush", src: "/images/sanni-campaign-blush.png", swatch: "#d8b5b0" },
@@ -327,7 +328,7 @@ function HeroSection() {
             <Image src="/images/sanni-logo.png" alt="SANNI" width={52} height={52} priority />
           </a>
           <nav className="hero-nav" aria-label="Main navigation">
-            <a href="#about">Story</a>
+            <a href={TIKTOK_PROFILE_URL} target="_blank" rel="noreferrer">Story</a>
             <a href="#colors">Colors</a>
             <a href="#features">Features</a>
             <a href={SHOP_URL} target="_blank" rel="noreferrer">Buy now</a>
