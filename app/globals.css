@@ -746,6 +746,172 @@ img {
   background: #f7f6f2;
 }
 
+/* Interactive finish selector */
+.colorway-section {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: clamp(80px, 9vw, 140px) clamp(22px, 6vw, 86px);
+  background: #f1efe7;
+  color: #242522;
+}
+
+.colorway-shell {
+  display: grid;
+  width: min(100%, 1240px);
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(48px, 7vw, 104px);
+}
+
+.colorway-visual {
+  width: 100%;
+}
+
+.colorway-image-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: clamp(24px, 3vw, 34px);
+  background: #e8e5dc;
+  box-shadow: 0 24px 70px rgba(63, 56, 47, 0.08);
+  cursor: pointer;
+}
+
+.colorway-image {
+  position: absolute;
+  inset: 0;
+}
+
+.colorway-image img {
+  padding: 3.5%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.colorway-tap-label {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 4;
+  width: max-content;
+  padding: 9px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  background: rgba(248, 246, 241, 0.82);
+  color: #292a27;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  opacity: 0;
+  text-transform: uppercase;
+  transform: translate(-50%, 6px);
+  transition: opacity 200ms ease, transform 200ms ease;
+  backdrop-filter: blur(12px);
+}
+
+.colorway-image-button:hover .colorway-tap-label,
+.colorway-image-button:focus-visible .colorway-tap-label {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.colorway-image-button:focus-visible {
+  outline: 2px solid #242522;
+  outline-offset: 6px;
+}
+
+.colorway-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.colorway-intro {
+  max-width: 560px;
+  color: rgba(36, 37, 34, 0.53);
+  font-size: clamp(0.9rem, 1.25vw, 1.12rem);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.colorway-options {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(18px, 2.5vw, 30px);
+}
+
+.colorway-options button {
+  display: flex;
+  min-width: 68px;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  background: transparent;
+  color: rgba(36, 37, 34, 0.6);
+  font-size: 0.76rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.colorway-options button.is-active {
+  color: #242522;
+}
+
+.colorway-ring {
+  display: grid;
+  width: 70px;
+  height: 70px;
+  place-items: center;
+  border: 1px solid rgba(36, 37, 34, 0.12);
+  border-radius: 50%;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.colorway-ring i {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(36, 37, 34, 0.12);
+  border-radius: 50%;
+  background: var(--swatch);
+}
+
+.colorway-options button.is-active .colorway-ring {
+  border-color: #427792;
+  box-shadow: 0 0 0 2px #427792;
+}
+
+.colorway-options button:focus-visible {
+  outline: 2px solid #427792;
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+
+.colorway-description {
+  width: 100%;
+  max-width: 580px;
+  min-height: 68px;
+  padding: 21px 24px;
+  border: 1px solid rgba(36, 37, 34, 0.06);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.76);
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.colorway-details .shop-button {
+  min-width: 138px;
+  padding: 14px 22px;
+  border: 0;
+  outline: 0;
+  background: #20211f;
+  box-shadow: 0 10px 28px rgba(32, 33, 31, 0.16);
+}
+
 /* About */
 .about-section {
   position: relative;
@@ -1024,6 +1190,9 @@ img {
   .collection-card-head { grid-template-columns: 0.55fr 0.72fr 1fr; }
   .collection-card-head .shop-button { grid-column: 3; justify-self: start; }
   .collection-card { min-height: calc(100svh - 7rem); }
+  .colorway-shell { gap: 42px; }
+  .colorway-ring { width: 62px; height: 62px; }
+  .colorway-ring i { width: 36px; height: 36px; }
 }
 
 @media (max-width: 640px) {
@@ -1076,6 +1245,14 @@ img {
   .collection-small-images > div, .collection-large-image { border-radius: 22px; }
   .site-footer { grid-template-columns: 1fr 1fr; padding-top: 65px; }
   .site-footer p { display: none; }
+  .colorway-section { min-height: auto; padding: 80px 18px 90px; }
+  .colorway-shell { grid-template-columns: 1fr; gap: 42px; }
+  .colorway-image-button { border-radius: 24px; }
+  .colorway-tap-label { bottom: 13px; opacity: 1; transform: translate(-50%, 0); font-size: 0.5rem; }
+  .colorway-details { align-items: center; gap: 24px; text-align: center; }
+  .colorway-intro { max-width: 430px; }
+  .colorway-options { gap: 18px; }
+  .colorway-description { min-height: 84px; padding: 18px; }
 }
 
 @media (max-width: 640px) {

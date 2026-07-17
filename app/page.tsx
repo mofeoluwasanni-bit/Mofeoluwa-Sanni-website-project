@@ -26,6 +26,30 @@ const heroCampaigns = [
   { name: "Porcelain", src: "/images/sanni-campaign-porcelain.png", swatch: "#eee9dc" },
 ] as const;
 
+const colorways = [
+  {
+    name: "Cream White",
+    shortName: "Cream",
+    src: "/images/sanni-product-porcelain.png",
+    swatch: "#eee9dc",
+    description: "A warm cream finish with a clean, soft presence that belongs everywhere.",
+  },
+  {
+    name: "Black",
+    shortName: "Black",
+    src: "/images/sanni-product-obsidian.png",
+    swatch: "#20211f",
+    description: "Deep matte black with a durable coating designed to shrug off fingerprints.",
+  },
+  {
+    name: "Pink",
+    shortName: "Pink",
+    src: "/images/sanni-product-blush.png",
+    swatch: "#e8c0b8",
+    description: "A calm blush-pink finish that feels warm, modern, and unmistakably SANNI.",
+  },
+] as const;
+
 const marqueeRowOne = [
   { src: "/images/sanni-magnetic-blush.png", alt: "SANNI blush bottle held beside a window", shape: "portrait" },
   { src: "/images/sanni-obsidian-phone.png", alt: "SANNI obsidian bottle used as a phone stand", shape: "portrait" },
@@ -304,7 +328,7 @@ function HeroSection() {
           </a>
           <nav className="hero-nav" aria-label="Main navigation">
             <a href="#about">Story</a>
-            <a href="#collection">Shop</a>
+            <a href="#colors">Colors</a>
             <a href="#features">Features</a>
             <a href={SHOP_URL} target="_blank" rel="noreferrer">Buy now</a>
           </nav>
@@ -366,6 +390,72 @@ function MarqueeSection() {
           </div>
         ))}
       </motion.div>
+    </section>
+  );
+}
+
+function ColorwaySection() {
+  const [activeColorway, setActiveColorway] = useState(1);
+  const current = colorways[activeColorway];
+
+  return (
+    <section className="colorway-section" id="colors">
+      <div className="colorway-shell">
+        <FadeIn y={30} className="colorway-visual">
+          <button
+            className="colorway-image-button"
+            type="button"
+            aria-label={`Show next SANNI finish. Current finish: ${current.name}`}
+            onClick={() => setActiveColorway((activeColorway + 1) % colorways.length)}
+          >
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                className="colorway-image"
+                key={current.src}
+                initial={{ opacity: 0, scale: 0.985 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.015 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Image src={current.src} alt={`${current.name} SANNI bottle showcase`} fill sizes="(max-width: 760px) 92vw, 48vw" />
+              </motion.span>
+            </AnimatePresence>
+            <span className="colorway-tap-label">Tap image for the next finish</span>
+          </button>
+        </FadeIn>
+
+        <FadeIn delay={0.12} y={30} className="colorway-details">
+          <p className="colorway-intro">Every colorway shares the same vacuum-sealed core and MagSafe ring — only the finish changes. Tap a ring to preview it.</p>
+          <div className="colorway-options" aria-label="Choose a SANNI finish">
+            {colorways.map((colorway, index) => (
+              <button
+                className={index === activeColorway ? "is-active" : ""}
+                key={colorway.name}
+                type="button"
+                aria-label={`Preview ${colorway.name}`}
+                aria-pressed={index === activeColorway}
+                onClick={() => setActiveColorway(index)}
+              >
+                <span className="colorway-ring"><i style={{ "--swatch": colorway.swatch } as React.CSSProperties} /></span>
+                <span>{colorway.name}</span>
+              </button>
+            ))}
+          </div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.p
+              className="colorway-description"
+              key={current.name}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.28 }}
+            >
+              {current.description}
+            </motion.p>
+          </AnimatePresence>
+          <ShopButton label={`Shop ${current.shortName}`} />
+        </FadeIn>
+      </div>
     </section>
   );
 }
@@ -471,6 +561,7 @@ export default function Home() {
     <main className="sanni-site overflow-x-clip">
       <HeroSection />
       <MarqueeSection />
+      <ColorwaySection />
       <AboutSection />
       <FeaturesSection />
       <CollectionSection />
