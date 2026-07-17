@@ -234,22 +234,45 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="feature-rail" aria-label="Product highlights">
-        <article className="reveal">
-          <span>01</span>
-          <h3>Hydration</h3>
-          <p>A considered insulated form, made to move through your day.</p>
-        </article>
-        <article className="reveal">
-          <span>02</span>
-          <h3>Connection</h3>
-          <p>Keep your phone close for calls, content, classes, and more.</p>
-        </article>
-        <article className="reveal">
-          <span>03</span>
-          <h3>Freedom</h3>
-          <p>Set your screen, free your hands, and stay in your flow.</p>
-        </article>
+      <section className="spec-section" aria-labelledby="product-specs">
+        <div className="spec-heading reveal">
+          <div>
+            <p className="eyebrow">What&apos;s inside the design</p>
+            <h2 id="product-specs">Engineered to<br /><em>keep up.</em></h2>
+          </div>
+          <p>
+            From the N52 magnetic ring to the vacuum-sealed stainless-steel body, every detail is made
+            for reliable, everyday use.
+          </p>
+        </div>
+
+        <div className="spec-grid">
+          <figure className="spec-card reveal">
+            <Image
+              src="/images/sanni-feature-overview.png"
+              alt="Diagram showing the SANNI bottle's MagSafe ring, magnetic top, durable body, and temperature insulation"
+              width={800}
+              height={800}
+              sizes="(max-width: 820px) 100vw, 50vw"
+            />
+            <figcaption><span>01</span> Magnetic design overview</figcaption>
+          </figure>
+          <figure className="spec-card reveal">
+            <Image
+              src="/images/sanni-material-specs.png"
+              alt="SANNI bottle specifications including BPA-free straw lid, N52 magnetic ring, leakproof exterior, matte coating, and stainless steel"
+              width={800}
+              height={800}
+              sizes="(max-width: 820px) 100vw, 50vw"
+            />
+            <figcaption><span>02</span> Materials and insulation</figcaption>
+          </figure>
+        </div>
+
+        <div className="spec-footer reveal">
+          <p>Strong. Leakproof. Built to go.</p>
+          <ShopLink light label="Shop the bottle" />
+        </div>
       </section>
 
       <section className="color-section" id="colors">
