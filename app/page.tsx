@@ -11,24 +11,24 @@ const colors = [
   { name: "Porcelain", hex: "#e7e6df", cap: "#f1f0e9", ink: "#77786f" },
 ] as const;
 
-const gallery = [
+const productRenders = [
   {
     name: "Soft Blush",
     detail: "Warm, quiet, unmistakably SANNI.",
-    image: "/images/sanni-blush-still.png",
-    className: "gallery-card gallery-card--tall",
+    image: "/images/sanni-product-blush.png",
+    accent: "#e8c5c0",
   },
   {
     name: "Obsidian",
     detail: "Minimal by design. Bold by nature.",
-    image: "/images/sanni-obsidian-phone.png",
-    className: "gallery-card gallery-card--wide",
+    image: "/images/sanni-product-obsidian.png",
+    accent: "#262725",
   },
   {
     name: "Porcelain",
     detail: "A clean canvas for every day.",
-    image: "/images/sanni-porcelain-phone.png",
-    className: "gallery-card gallery-card--wide",
+    image: "/images/sanni-product-porcelain.png",
+    accent: "#e9e7df",
   },
 ] as const;
 
@@ -257,19 +257,57 @@ export default function Home() {
           <p className="eyebrow">Find your finish</p>
           <h2>Quiet colors.<br /><em>Strong presence.</em></h2>
         </div>
-        <div className="gallery-grid">
-          {gallery.map((item) => (
-            <article className={`${item.className} reveal`} key={item.name}>
-              <Image src={item.image} alt={`SANNI bottle in ${item.name}`} fill sizes="(max-width: 820px) 100vw, 50vw" />
-              <div className="gallery-overlay">
-                <div>
-                  <h3>{item.name}</h3>
-                  <p>{item.detail}</p>
-                </div>
-                <span aria-hidden="true">↗</span>
-              </div>
-            </article>
-          ))}
+        <div className="collection-shell reveal">
+          <div
+            className="collection-stage"
+            style={{ "--collection-accent": productRenders[activeColor].accent } as React.CSSProperties}
+          >
+            <span className="collection-index">0{activeColor + 1} / 03</span>
+            <div className="collection-images">
+              {productRenders.map((item, index) => (
+                <Image
+                  key={item.name}
+                  className={index === activeColor ? "is-active" : ""}
+                  src={item.image}
+                  alt={`SANNI bottle in ${item.name}`}
+                  fill
+                  sizes="(max-width: 820px) 100vw, 58vw"
+                />
+              ))}
+            </div>
+            <span className="collection-caption">Studio view</span>
+          </div>
+
+          <div className="collection-info">
+            <p className="eyebrow">The SANNI collection</p>
+            <div className="collection-title" aria-live="polite">
+              <span>Color 0{activeColor + 1}</span>
+              <h3>{productRenders[activeColor].name}</h3>
+              <p>{productRenders[activeColor].detail}</p>
+            </div>
+
+            <div className="collection-options" aria-label="Choose a SANNI color">
+              {productRenders.map((item, index) => (
+                <button
+                  key={item.name}
+                  className={index === activeColor ? "is-active" : ""}
+                  type="button"
+                  onClick={() => setActiveColor(index)}
+                  aria-pressed={index === activeColor}
+                >
+                  <span className="option-number">0{index + 1}</span>
+                  <span
+                    className="option-swatch"
+                    style={{ "--option-color": item.accent } as React.CSSProperties}
+                  />
+                  <span className="option-name">{item.name}</span>
+                  <span className="option-arrow" aria-hidden="true">→</span>
+                </button>
+              ))}
+            </div>
+
+            <ShopLink label={`Shop ${productRenders[activeColor].name}`} />
+          </div>
         </div>
       </section>
 

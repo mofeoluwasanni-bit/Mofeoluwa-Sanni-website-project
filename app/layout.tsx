@@ -20,13 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "SANNI | Your Bottle. Your Angle.",
       description: "The magnetic bottle made for every moment.",
       type: "website",
-      images: [{ url: `${origin}/og.png`, width: 1731, height: 909, alt: "SANNI magnetic bottle" }],
+      images: [{ url: `${origin}/og-v2.png`, width: 1731, height: 909, alt: "The SANNI magnetic bottle collection" }],
     },
     twitter: {
       card: "summary_large_image",
       title: "SANNI | Your Bottle. Your Angle.",
       description: "The magnetic bottle made for every moment.",
-      images: [`${origin}/og.png`],
+      images: [`${origin}/og-v2.png`],
     },
   };
 }
