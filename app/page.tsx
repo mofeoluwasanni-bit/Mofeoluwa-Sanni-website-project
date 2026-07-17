@@ -1,365 +1,441 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import {
+  animate,
+  motion,
+  MotionValue,
+  useMotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import {
+  ArrowUpRight,
+  Droplets,
+  Leaf,
+  Magnet as MagnetIcon,
+  ShieldCheck,
+  Snowflake,
+} from "lucide-react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 const SHOP_URL = "https://shop.tiktok.com/us/pdp/1732474986384560309";
 
 const colors = [
-  { name: "Soft Blush", hex: "#d6b6b4", cap: "#e3c8c5", ink: "#706666" },
-  { name: "Obsidian", hex: "#202321", cap: "#171918", ink: "#a8aaa7" },
-  { name: "Porcelain", hex: "#e7e6df", cap: "#f1f0e9", ink: "#77786f" },
+  { name: "Soft Blush", body: "#d4b2b0", cap: "#e2c4c1", ink: "#6d6261" },
+  { name: "Obsidian", body: "#202220", cap: "#151715", ink: "#a9aaa7" },
+  { name: "Porcelain", body: "#e8e6de", cap: "#f0eee7", ink: "#77776f" },
 ] as const;
 
-const productRenders = [
+const marqueeRowOne = [
+  { src: "/images/sanni-magnetic-blush.png", alt: "SANNI blush bottle holding a phone" },
+  { src: "/images/sanni-obsidian-phone.png", alt: "SANNI obsidian bottle used as a phone stand" },
+  { src: "/images/sanni-product-porcelain.png", alt: "Porcelain SANNI bottle" },
+  { src: "/images/sanni-blush-still.png", alt: "Soft blush SANNI bottle" },
+  { src: "/images/sanni-feature-overview.png", alt: "SANNI magnetic bottle feature overview" },
+];
+
+const marqueeRowTwo = [
+  { src: "/images/sanni-product-blush.png", alt: "Soft blush SANNI product view" },
+  { src: "/images/sanni-porcelain-phone.png", alt: "Porcelain SANNI bottle holding a phone" },
+  { src: "/images/sanni-obsidian-still.png", alt: "Obsidian SANNI bottle" },
+  { src: "/images/sanni-material-specs.png", alt: "SANNI material specifications" },
+  { src: "/images/sanni-product-obsidian.png", alt: "Obsidian SANNI product view" },
+];
+
+const features = [
   {
+    number: "01",
+    name: "N52 Magnetic Ring",
+    description: "A powerful magnetic connection for secure hands-free viewing, filming, calls, and more.",
+    icon: MagnetIcon,
+  },
+  {
+    number: "02",
+    name: "24-Hour Temperature",
+    description: "Vacuum-sealed double-wall insulation helps keep every sip at the temperature you want.",
+    icon: Snowflake,
+  },
+  {
+    number: "03",
+    name: "100% Leakproof",
+    description: "A dependable straw lid and anti-sweat exterior designed for bags, desks, and daily movement.",
+    icon: Droplets,
+  },
+  {
+    number: "04",
+    name: "18/8 Stainless Steel",
+    description: "Food-grade construction with a hard matte powder coating for a refined, durable finish.",
+    icon: ShieldCheck,
+  },
+  {
+    number: "05",
+    name: "BPA-Free Design",
+    description: "Thoughtful materials and a comfortable carry ring, made to become part of your everyday rhythm.",
+    icon: Leaf,
+  },
+] as const;
+
+const collection = [
+  {
+    number: "01",
+    category: "Warm / Quiet",
     name: "Soft Blush",
-    detail: "Warm, quiet, unmistakably SANNI.",
-    image: "/images/sanni-product-blush.png",
-    accent: "#e8c5c0",
+    tone: "#d4b2b0",
+    images: [
+      "/images/sanni-product-blush.png",
+      "/images/sanni-blush-still.png",
+      "/images/sanni-magnetic-blush.png",
+    ],
   },
   {
+    number: "02",
+    category: "Bold / Minimal",
     name: "Obsidian",
-    detail: "Minimal by design. Bold by nature.",
-    image: "/images/sanni-product-obsidian.png",
-    accent: "#262725",
+    tone: "#252725",
+    images: [
+      "/images/sanni-product-obsidian.png",
+      "/images/sanni-obsidian-still.png",
+      "/images/sanni-obsidian-phone.png",
+    ],
   },
   {
+    number: "03",
+    category: "Clean / Timeless",
     name: "Porcelain",
-    detail: "A clean canvas for every day.",
-    image: "/images/sanni-product-porcelain.png",
-    accent: "#e9e7df",
+    tone: "#e8e6de",
+    images: [
+      "/images/sanni-product-porcelain.png",
+      "/images/sanni-porcelain-phone.png",
+      "/images/sanni-material-specs.png",
+    ],
   },
 ] as const;
 
-function Arrow({ diagonal = false }: { diagonal?: boolean }) {
+function FadeIn({
+  children,
+  delay = 0,
+  duration = 0.7,
+  x = 0,
+  y = 30,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  duration?: number;
+  x?: number;
+  y?: number;
+  className?: string;
+}) {
   return (
-    <span aria-hidden="true" className={diagonal ? "arrow arrow--diagonal" : "arrow"}>
-      →
-    </span>
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, x, y }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: "50px", amount: 0 }}
+      transition={{ delay, duration, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
-function ShopLink({ light = false, label = "Shop the bottle" }: { light?: boolean; label?: string }) {
+function Magnet({ children, padding = 150, strength = 3 }: { children: ReactNode; padding?: number; strength?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  useEffect(() => {
+    const handleMove = (event: MouseEvent) => {
+      const element = ref.current;
+      if (!element) return;
+      const rect = element.getBoundingClientRect();
+      const within =
+        event.clientX >= rect.left - padding &&
+        event.clientX <= rect.right + padding &&
+        event.clientY >= rect.top - padding &&
+        event.clientY <= rect.bottom + padding;
+
+      if (within) {
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        animate(x, (event.clientX - centerX) / strength, { duration: 0.3, ease: "easeOut" });
+        animate(y, (event.clientY - centerY) / strength, { duration: 0.3, ease: "easeOut" });
+      } else {
+        animate(x, 0, { duration: 0.6, ease: "easeInOut" });
+        animate(y, 0, { duration: 0.6, ease: "easeInOut" });
+      }
+    };
+
+    window.addEventListener("mousemove", handleMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, [padding, strength, x, y]);
+
+  return <motion.div ref={ref} style={{ x, y, willChange: "transform" }}>{children}</motion.div>;
+}
+
+function ShopButton({ label = "Shop SANNI", outline = false }: { label?: string; outline?: boolean }) {
   return (
-    <a
-      className={`shop-link${light ? " shop-link--light" : ""}`}
-      href={SHOP_URL}
-      target="_blank"
-      rel="noreferrer"
-    >
+    <a className={outline ? "shop-button shop-button--outline" : "shop-button"} href={SHOP_URL} target="_blank" rel="noreferrer">
       <span>{label}</span>
-      <Arrow diagonal />
+      <ArrowUpRight size={18} strokeWidth={1.8} aria-hidden="true" />
     </a>
+  );
+}
+
+function Character({ progress, index, total, character }: { progress: MotionValue<number>; index: number; total: number; character: string }) {
+  const start = index / total;
+  const end = Math.min(1, start + 0.14);
+  const opacity = useTransform(progress, [start, end], [0.16, 1]);
+  return <motion.span style={{ opacity }}>{character === " " ? "\u00A0" : character}</motion.span>;
+}
+
+function AnimatedText({ children }: { children: string }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.8", "end 0.2"] });
+  const characters = children.split("");
+
+  return (
+    <p ref={ref} className="animated-text">
+      {characters.map((character, index) => (
+        <Character key={`${character}-${index}`} progress={scrollYProgress} index={index} total={characters.length} character={character} />
+      ))}
+    </p>
+  );
+}
+
+function HeroBottle({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (value: number) => void }) {
+  const [phoneDocked, setPhoneDocked] = useState(false);
+  const current = colors[activeColor];
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setPhoneDocked(true), 950);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  return (
+    <div
+      className="hero-product"
+      style={{ "--bottle": current.body, "--cap": current.cap, "--bottle-ink": current.ink } as React.CSSProperties}
+    >
+      <button
+        className={`hero-phone${phoneDocked ? " is-docked" : ""}`}
+        type="button"
+        aria-label={phoneDocked ? "Release phone from bottle" : "Attach phone to bottle"}
+        aria-pressed={phoneDocked}
+        onClick={() => setPhoneDocked((value) => !value)}
+      >
+        <span className="hero-phone-cameras"><i /><i /></span>
+        <span className="hero-phone-screen"><small>SANNI</small><strong>made for<br />every moment.</strong></span>
+      </button>
+
+      <button
+        className="bottle-model"
+        type="button"
+        aria-label={`Change bottle color. Current color: ${current.name}`}
+        onClick={() => setActiveColor((activeColor + 1) % colors.length)}
+      >
+        <span className="model-ring" />
+        <span className="model-cap"><i /></span>
+        <span className="model-body">
+          <span className="model-shine" />
+          <span className="model-logo">SANNI</span>
+          <span className="model-tagline">MADE FOR<br />EVERY MOMENT.</span>
+        </span>
+      </button>
+
+      <div className="hero-color-controls" aria-label="Bottle colors">
+        {colors.map((color, index) => (
+          <button
+            key={color.name}
+            className={index === activeColor ? "is-active" : ""}
+            style={{ "--swatch": color.body } as React.CSSProperties}
+            type="button"
+            aria-label={`Show ${color.name}`}
+            aria-pressed={index === activeColor}
+            onClick={() => setActiveColor(index)}
+          />
+        ))}
+        <span>{current.name}</span>
+      </div>
+      <p className="hero-product-hint">Tap bottle to change color · Tap phone to release</p>
+    </div>
+  );
+}
+
+function HeroSection({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (value: number) => void }) {
+  return (
+    <section className="hero-section min-h-screen" id="top">
+      <FadeIn y={-20} className="hero-nav-wrap">
+        <nav className="hero-nav" aria-label="Main navigation">
+          <a href="#about">Story</a>
+          <a href="#features">Details</a>
+          <a href="#collection">Colors</a>
+          <a href={SHOP_URL} target="_blank" rel="noreferrer">Shop</a>
+        </nav>
+        <a className="hero-logo" href="#top" aria-label="SANNI home">
+          <Image src="/images/sanni-logo.png" alt="SANNI" width={56} height={56} priority />
+        </a>
+      </FadeIn>
+
+      <div className="hero-heading-clip">
+        <FadeIn delay={0.15} y={40}>
+          <h1 className="hero-heading whitespace-nowrap">MEET SANNI</h1>
+        </FadeIn>
+      </div>
+
+      <FadeIn delay={0.6} y={30} className="hero-product-wrap">
+        <Magnet padding={150} strength={3}>
+          <HeroBottle activeColor={activeColor} setActiveColor={setActiveColor} />
+        </Magnet>
+      </FadeIn>
+
+      <div className="hero-bottom">
+        <FadeIn delay={0.35} y={20}>
+          <p className="hero-description">hydration and hands-free freedom, crafted into one unforgettable bottle</p>
+        </FadeIn>
+        <FadeIn delay={0.5} y={20}>
+          <ShopButton />
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+function MarqueeSection() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const rowOneX = useTransform(scrollYProgress, [0, 1], [-280, 160]);
+  const rowTwoX = useTransform(scrollYProgress, [0, 1], [160, -300]);
+  const first = [...marqueeRowOne, ...marqueeRowOne, ...marqueeRowOne];
+  const second = [...marqueeRowTwo, ...marqueeRowTwo, ...marqueeRowTwo];
+
+  return (
+    <section className="marquee-section" ref={ref} aria-label="SANNI in every moment">
+      <motion.div className="marquee-row" style={{ x: rowOneX, willChange: "transform" }}>
+        {first.map((image, index) => (
+          <div className="marquee-tile" key={`one-${index}`}>
+            <Image src={image.src} alt={image.alt} fill sizes="420px" loading="lazy" />
+          </div>
+        ))}
+      </motion.div>
+      <motion.div className="marquee-row" style={{ x: rowTwoX, willChange: "transform" }}>
+        {second.map((image, index) => (
+          <div className="marquee-tile" key={`two-${index}`}>
+            <Image src={image.src} alt={image.alt} fill sizes="420px" loading="lazy" />
+          </div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section className="about-section min-h-screen" id="about">
+      <FadeIn delay={0.1} x={-80} y={0} duration={0.9} className="about-object about-object--one">
+        <Image src="/images/sanni-product-porcelain.png" alt="Porcelain SANNI bottle" fill sizes="210px" />
+      </FadeIn>
+      <FadeIn delay={0.25} x={-80} y={0} duration={0.9} className="about-object about-object--two">
+        <Image src="/images/sanni-feature-overview.png" alt="SANNI feature overview" fill sizes="180px" />
+      </FadeIn>
+      <FadeIn delay={0.15} x={80} y={0} duration={0.9} className="about-object about-object--three">
+        <Image src="/images/sanni-product-obsidian.png" alt="Obsidian SANNI bottle" fill sizes="210px" />
+      </FadeIn>
+      <FadeIn delay={0.3} x={80} y={0} duration={0.9} className="about-object about-object--four">
+        <Image src="/images/sanni-magnetic-blush.png" alt="Blush SANNI bottle magnetically holding a phone" fill sizes="220px" />
+      </FadeIn>
+
+      <div className="about-content">
+        <FadeIn y={40}><h2 className="section-display hero-heading">ABOUT SANNI</h2></FadeIn>
+        <AnimatedText>
+          SANNI is hydration designed for life in motion. A powerful magnetic phone mount, considered materials, and a refined silhouette come together so you can film, follow, call, create, and keep moving. Made for every moment—and made to look good in all of them.
+        </AnimatedText>
+        <FadeIn delay={0.25} y={20}><ShopButton /></FadeIn>
+      </div>
+    </section>
+  );
+}
+
+function FeaturesSection() {
+  return (
+    <section className="features-section" id="features">
+      <FadeIn y={40}><h2 className="section-display">BUILT IN</h2></FadeIn>
+      <div className="feature-list">
+        {features.map((feature, index) => {
+          const Icon = feature.icon;
+          return (
+            <FadeIn key={feature.number} delay={index * 0.1} y={30}>
+              <article className="feature-item">
+                <span className="feature-number">{feature.number}</span>
+                <div className="feature-detail">
+                  <div className="feature-title-row"><h3>{feature.name}</h3><Icon aria-hidden="true" /></div>
+                  <p>{feature.description}</p>
+                </div>
+              </article>
+            </FadeIn>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function CollectionCard({ item, index, total }: { item: (typeof collection)[number]; index: number; total: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const targetScale = 1 - (total - 1 - index) * 0.03;
+  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+
+  return (
+    <div className="collection-card-space" ref={ref}>
+      <motion.article className="collection-card" style={{ scale, top: `calc(6rem + ${index * 28}px)`, "--tone": item.tone } as React.CSSProperties}>
+        <div className="collection-card-head">
+          <span className="collection-number">{item.number}</span>
+          <span className="collection-category">{item.category}</span>
+          <h3>{item.name}</h3>
+          <ShopButton label="Shop this color" outline />
+        </div>
+        <div className="collection-images-grid">
+          <div className="collection-small-images">
+            <div><Image src={item.images[0]} alt={`${item.name} SANNI bottle product view`} fill sizes="40vw" /></div>
+            <div><Image src={item.images[1]} alt={`${item.name} SANNI bottle lifestyle view`} fill sizes="40vw" /></div>
+          </div>
+          <div className="collection-large-image"><Image src={item.images[2]} alt={`${item.name} SANNI bottle detail`} fill sizes="60vw" /></div>
+        </div>
+      </motion.article>
+    </div>
+  );
+}
+
+function CollectionSection() {
+  return (
+    <section className="collection-section" id="collection">
+      <FadeIn y={40}><h2 className="section-display hero-heading">THE COLLECTION</h2></FadeIn>
+      <div className="collection-stack">
+        {collection.map((item, index) => (
+          <CollectionCard key={item.name} item={item} index={index} total={collection.length} />
+        ))}
+      </div>
+      <footer className="site-footer">
+        <Image src="/images/sanni-logo.png" alt="SANNI" width={68} height={68} />
+        <p>Made for every moment.</p>
+        <a href={SHOP_URL} target="_blank" rel="noreferrer">TikTok Shop <ArrowUpRight size={16} /></a>
+      </footer>
+    </section>
   );
 }
 
 export default function Home() {
   const [activeColor, setActiveColor] = useState(0);
-  const [phoneDocked, setPhoneDocked] = useState(false);
-  const current = colors[activeColor];
-
-  const bottleStyle = useMemo(
-    () =>
-      ({
-        "--bottle": current.hex,
-        "--cap": current.cap,
-        "--bottle-ink": current.ink,
-      }) as React.CSSProperties,
-    [current],
-  );
-
-  useEffect(() => {
-    const dockTimer = window.setTimeout(() => setPhoneDocked(true), 900);
-    const elements = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.14 },
-    );
-    elements.forEach((element) => observer.observe(element));
-
-    return () => {
-      window.clearTimeout(dockTimer);
-      observer.disconnect();
-    };
-  }, []);
-
-  const cycleColor = () => setActiveColor((index) => (index + 1) % colors.length);
 
   return (
-    <main>
-      <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="SANNI home">
-          SANNI
-        </a>
-        <a className="profile-mark" href="#top" aria-label="SANNI home">
-          <Image src="/images/sanni-logo.png" alt="SANNI" width={52} height={52} priority />
-        </a>
-        <nav aria-label="Main navigation">
-          <a href="#design">Design</a>
-          <a href="#colors">Colors</a>
-          <a href={SHOP_URL} target="_blank" rel="noreferrer">
-            Shop <span aria-hidden="true">↗</span>
-          </a>
-        </nav>
-      </header>
-
-      <section className="hero" id="top">
-        <div className="hero-orb hero-orb--one" />
-        <div className="hero-orb hero-orb--two" />
-        <div className="hero-copy">
-          <p className="eyebrow hero-eyebrow">Hydrate. Create. Repeat.</p>
-          <h1>
-            Your bottle.
-            <br />
-            <em>Your angle.</em>
-          </h1>
-          <p className="hero-intro">
-            The SANNI magnetic bottle keeps water close and your phone perfectly in frame—wherever the
-            moment takes you.
-          </p>
-          <ShopLink />
-        </div>
-
-        <div className="product-stage" style={bottleStyle}>
-          <div className="stage-label stage-label--top">
-            <span>01</span>
-            Magnetic hold
-          </div>
-          <div className="stage-label stage-label--bottom">
-            <span>02</span>
-            Insulated body
-          </div>
-
-          <button
-            className={`phone-demo${phoneDocked ? " is-docked" : ""}`}
-            type="button"
-            onClick={() => setPhoneDocked((value) => !value)}
-            aria-label={phoneDocked ? "Release phone from bottle" : "Attach phone to bottle"}
-            aria-pressed={phoneDocked}
-          >
-            <span className="phone-camera">
-              <i />
-              <i />
-            </span>
-            <span className="phone-screen">
-              <small>SANNI</small>
-              <strong>made for<br />every moment.</strong>
-            </span>
-          </button>
-
-          <button
-            className="hero-bottle"
-            type="button"
-            onClick={cycleColor}
-            aria-label={`Change bottle color. Current color: ${current.name}`}
-          >
-            <span className="bottle-ring" aria-hidden="true" />
-            <span className="bottle-cap" aria-hidden="true">
-              <i />
-            </span>
-            <span className="bottle-body" aria-hidden="true">
-              <span className="bottle-shine" />
-              <span className="bottle-logo">SANNI</span>
-              <span className="bottle-tagline">MADE FOR<br />EVERY MOMENT.</span>
-            </span>
-          </button>
-
-          <div className="stage-controls" aria-label="Bottle colors">
-            <span className="stage-instruction">Tap bottle to change color</span>
-            <div className="swatches">
-              {colors.map((color, index) => (
-                <button
-                  key={color.name}
-                  className={index === activeColor ? "is-active" : ""}
-                  style={{ "--swatch": color.hex } as React.CSSProperties}
-                  type="button"
-                  onClick={() => setActiveColor(index)}
-                  aria-label={`Show ${color.name} bottle`}
-                  aria-pressed={index === activeColor}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="hero-footnote">
-          <span>Designed for the everyday</span>
-          <span>Scroll to discover</span>
-        </div>
-      </section>
-
-      <section className="manifesto" id="design">
-        <p className="eyebrow reveal">The everyday, reimagined</p>
-        <h2 className="reveal">
-          One bottle.<br />
-          <em>More possibilities.</em>
-        </h2>
-        <p className="manifesto-copy reveal">
-          SANNI brings hydration and hands-free viewing into one beautifully considered object. Film a
-          workout. Follow a recipe. Take a call. Keep moving.
-        </p>
-      </section>
-
-      <section className="feature-story">
-        <div className="feature-photo reveal">
-          <Image
-            src="/images/sanni-magnetic-blush.png"
-            alt="Soft blush SANNI bottle magnetically holding a phone"
-            fill
-            sizes="(max-width: 820px) 100vw, 54vw"
-          />
-          <span className="photo-note">A magnetic moment</span>
-        </div>
-        <div className="feature-copy reveal">
-          <p className="eyebrow">Snap. Set. Create.</p>
-          <h2>Bring your own point of view.</h2>
-          <p>
-            The rotating magnetic ring transforms your bottle into a steady phone stand. Landscape or
-            portrait, your best angle is always within reach.
-          </p>
-          <ul>
-            <li><span>01</span> Secure magnetic connection</li>
-            <li><span>02</span> Flexible hands-free viewing</li>
-            <li><span>03</span> Comfortable carry ring</li>
-          </ul>
-          <ShopLink label="See it on TikTok Shop" />
-        </div>
-      </section>
-
-      <section className="spec-section" aria-labelledby="product-specs">
-        <div className="spec-heading reveal">
-          <div>
-            <p className="eyebrow">What&apos;s inside the design</p>
-            <h2 id="product-specs">Engineered to<br /><em>keep up.</em></h2>
-          </div>
-          <p>
-            From the N52 magnetic ring to the vacuum-sealed stainless-steel body, every detail is made
-            for reliable, everyday use.
-          </p>
-        </div>
-
-        <div className="spec-grid">
-          <figure className="spec-card reveal">
-            <Image
-              src="/images/sanni-feature-overview.png"
-              alt="Diagram showing the SANNI bottle's MagSafe ring, magnetic top, durable body, and temperature insulation"
-              width={800}
-              height={800}
-              sizes="(max-width: 820px) 100vw, 50vw"
-            />
-            <figcaption><span>01</span> Magnetic design overview</figcaption>
-          </figure>
-          <figure className="spec-card reveal">
-            <Image
-              src="/images/sanni-material-specs.png"
-              alt="SANNI bottle specifications including BPA-free straw lid, N52 magnetic ring, leakproof exterior, matte coating, and stainless steel"
-              width={800}
-              height={800}
-              sizes="(max-width: 820px) 100vw, 50vw"
-            />
-            <figcaption><span>02</span> Materials and insulation</figcaption>
-          </figure>
-        </div>
-
-        <div className="spec-footer reveal">
-          <p>Strong. Leakproof. Built to go.</p>
-          <ShopLink light label="Shop the bottle" />
-        </div>
-      </section>
-
-      <section className="color-section" id="colors">
-        <div className="color-heading reveal">
-          <p className="eyebrow">Find your finish</p>
-          <h2>Quiet colors.<br /><em>Strong presence.</em></h2>
-        </div>
-        <div className="collection-shell reveal">
-          <div
-            className="collection-stage"
-            style={{ "--collection-accent": productRenders[activeColor].accent } as React.CSSProperties}
-          >
-            <span className="collection-index">0{activeColor + 1} / 03</span>
-            <div className="collection-images">
-              {productRenders.map((item, index) => (
-                <Image
-                  key={item.name}
-                  className={index === activeColor ? "is-active" : ""}
-                  src={item.image}
-                  alt={`SANNI bottle in ${item.name}`}
-                  fill
-                  sizes="(max-width: 820px) 100vw, 58vw"
-                />
-              ))}
-            </div>
-            <span className="collection-caption">Studio view</span>
-          </div>
-
-          <div className="collection-info">
-            <p className="eyebrow">The SANNI collection</p>
-            <div className="collection-title" aria-live="polite">
-              <span>Color 0{activeColor + 1}</span>
-              <h3>{productRenders[activeColor].name}</h3>
-              <p>{productRenders[activeColor].detail}</p>
-            </div>
-
-            <div className="collection-options" aria-label="Choose a SANNI color">
-              {productRenders.map((item, index) => (
-                <button
-                  key={item.name}
-                  className={index === activeColor ? "is-active" : ""}
-                  type="button"
-                  onClick={() => setActiveColor(index)}
-                  aria-pressed={index === activeColor}
-                >
-                  <span className="option-number">0{index + 1}</span>
-                  <span
-                    className="option-swatch"
-                    style={{ "--option-color": item.accent } as React.CSSProperties}
-                  />
-                  <span className="option-name">{item.name}</span>
-                  <span className="option-arrow" aria-hidden="true">→</span>
-                </button>
-              ))}
-            </div>
-
-            <ShopLink label={`Shop ${productRenders[activeColor].name}`} />
-          </div>
-        </div>
-      </section>
-
-      <section className="closing">
-        <div className="closing-image reveal">
-          <Image
-            src="/images/sanni-obsidian-still.png"
-            alt="Obsidian SANNI bottle beside a window"
-            fill
-            sizes="(max-width: 820px) 100vw, 45vw"
-          />
-        </div>
-        <div className="closing-copy reveal">
-          <Image src="/images/sanni-logo.png" alt="" width={62} height={62} />
-          <p className="eyebrow">Made for every moment.</p>
-          <h2>Ready when<br /><em>you are.</em></h2>
-          <p>Meet the bottle designed for the way you move, watch, work, and create.</p>
-          <ShopLink light label="Shop SANNI" />
-        </div>
-      </section>
-
-      <footer>
-        <a className="footer-mark" href="#top">SANNI</a>
-        <div>
-          <span>Made for every moment.</span>
-          <a href={SHOP_URL} target="_blank" rel="noreferrer">TikTok Shop ↗</a>
-        </div>
-        <small>© {new Date().getFullYear()} SANNI</small>
-      </footer>
+    <main className="sanni-site overflow-x-clip">
+      <HeroSection activeColor={activeColor} setActiveColor={setActiveColor} />
+      <MarqueeSection />
+      <AboutSection />
+      <FeaturesSection />
+      <CollectionSection />
     </main>
   );
 }
