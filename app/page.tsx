@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import {
-  animate,
+  AnimatePresence,
   motion,
   MotionValue,
-  useMotionValue,
   useScroll,
   useTransform,
 } from "framer-motion";
@@ -17,14 +16,14 @@ import {
   ShieldCheck,
   Snowflake,
 } from "lucide-react";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 
 const SHOP_URL = "https://shop.tiktok.com/us/pdp/1732474986384560309";
 
-const colors = [
-  { name: "Soft Blush", body: "#d4b2b0", cap: "#e2c4c1", ink: "#6d6261" },
-  { name: "Obsidian", body: "#202220", cap: "#151715", ink: "#a9aaa7" },
-  { name: "Porcelain", body: "#e8e6de", cap: "#f0eee7", ink: "#77776f" },
+const heroCampaigns = [
+  { name: "Soft Blush", src: "/images/sanni-campaign-blush.png", swatch: "#d8b5b0" },
+  { name: "Obsidian", src: "/images/sanni-campaign-obsidian.png", swatch: "#222321" },
+  { name: "Porcelain", src: "/images/sanni-campaign-porcelain.png", swatch: "#eee9dc" },
 ] as const;
 
 const marqueeRowOne = [
@@ -140,40 +139,6 @@ function FadeIn({
   );
 }
 
-function Magnet({ children, padding = 150, strength = 3 }: { children: ReactNode; padding?: number; strength?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  useEffect(() => {
-    const handleMove = (event: MouseEvent) => {
-      const element = ref.current;
-      if (!element) return;
-      const rect = element.getBoundingClientRect();
-      const within =
-        event.clientX >= rect.left - padding &&
-        event.clientX <= rect.right + padding &&
-        event.clientY >= rect.top - padding &&
-        event.clientY <= rect.bottom + padding;
-
-      if (within) {
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        animate(x, (event.clientX - centerX) / strength, { duration: 0.3, ease: "easeOut" });
-        animate(y, (event.clientY - centerY) / strength, { duration: 0.3, ease: "easeOut" });
-      } else {
-        animate(x, 0, { duration: 0.6, ease: "easeInOut" });
-        animate(y, 0, { duration: 0.6, ease: "easeInOut" });
-      }
-    };
-
-    window.addEventListener("mousemove", handleMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, [padding, strength, x, y]);
-
-  return <motion.div ref={ref} style={{ x, y, willChange: "transform" }}>{children}</motion.div>;
-}
-
 function ShopButton({ label = "Shop SANNI", outline = false }: { label?: string; outline?: boolean }) {
   return (
     <a className={outline ? "shop-button shop-button--outline" : "shop-button"} href={SHOP_URL} target="_blank" rel="noreferrer">
@@ -204,6 +169,7 @@ function AnimatedText({ children }: { children: string }) {
   );
 }
 
+/* Previous generated hero removed from the rendered experience.
 function HeroBottle({ activeColor, setActiveColor }: { activeColor: number; setActiveColor: (value: number) => void }) {
   const [phoneDocked, setPhoneDocked] = useState(false);
   const current = colors[activeColor];
@@ -302,6 +268,80 @@ function HeroSection({ activeColor, setActiveColor }: { activeColor: number; set
   );
 }
 
+*/
+
+function HeroSection() {
+  const [activeColor, setActiveColor] = useState(0);
+  const current = heroCampaigns[activeColor];
+  const nextColor = () => setActiveColor((activeColor + 1) % heroCampaigns.length);
+
+  return (
+    <section className="hero-section min-h-screen" id="top">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.div
+          className="hero-campaign-frame"
+          key={current.src}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Image
+            className="hero-campaign-image"
+            src={current.src}
+            alt={`${current.name} SANNI magnetic bottle campaign`}
+            fill
+            priority
+            sizes="100vw"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      <FadeIn y={-20} className="hero-nav-wrap">
+        <div className="hero-nav-cluster">
+          <a className="hero-logo" href="#top" aria-label="SANNI home">
+            <Image src="/images/sanni-logo.png" alt="SANNI" width={52} height={52} priority />
+          </a>
+          <nav className="hero-nav" aria-label="Main navigation">
+            <a href="#about">Story</a>
+            <a href="#collection">Shop</a>
+            <a href="#features">Features</a>
+            <a href={SHOP_URL} target="_blank" rel="noreferrer">Buy now</a>
+          </nav>
+        </div>
+      </FadeIn>
+
+      <div className="hero-mobile-copy">
+        <span>SANNI</span>
+        <h1>Your bottle.<br />Your <em>angle.</em></h1>
+        <p>Made for every moment.</p>
+      </div>
+
+      <button className="hero-bottle-hotspot" type="button" onClick={nextColor} aria-label={`Change bottle color. Current color: ${current.name}`}>
+        <span>Click bottle to change color</span>
+      </button>
+
+      <div className="hero-color-switcher" aria-label="Choose bottle color">
+        {heroCampaigns.map((campaign, index) => (
+          <button
+            key={campaign.name}
+            className={index === activeColor ? "is-active" : ""}
+            style={{ "--swatch": campaign.swatch } as React.CSSProperties}
+            type="button"
+            aria-label={`Show ${campaign.name}`}
+            aria-pressed={index === activeColor}
+            onClick={() => setActiveColor(index)}
+          />
+        ))}
+        <span>{current.name}</span>
+      </div>
+
+      <FadeIn delay={0.45} y={20} className="hero-primary-action"><ShopButton label="Shop SANNI" /></FadeIn>
+      <a className="hero-scroll-cue" href="#gallery" aria-label="Scroll to discover SANNI"><span>Scroll</span><i /></a>
+    </section>
+  );
+}
+
 function MarqueeSection() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -311,7 +351,7 @@ function MarqueeSection() {
   const second = [...marqueeRowTwo, ...marqueeRowTwo, ...marqueeRowTwo];
 
   return (
-    <section className="marquee-section" ref={ref} aria-label="SANNI in every moment">
+    <section className="marquee-section" id="gallery" ref={ref} aria-label="SANNI in every moment">
       <motion.div className="marquee-row" style={{ x: rowOneX, willChange: "transform" }}>
         {first.map((image, index) => (
           <div className="marquee-tile" key={`one-${index}`}>
@@ -427,11 +467,9 @@ function CollectionSection() {
 }
 
 export default function Home() {
-  const [activeColor, setActiveColor] = useState(0);
-
   return (
     <main className="sanni-site overflow-x-clip">
-      <HeroSection activeColor={activeColor} setActiveColor={setActiveColor} />
+      <HeroSection />
       <MarqueeSection />
       <AboutSection />
       <FeaturesSection />
