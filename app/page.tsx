@@ -27,19 +27,19 @@ const heroCampaigns = [
 ] as const;
 
 const marqueeRowOne = [
-  { src: "/images/sanni-magnetic-blush.png", alt: "SANNI blush bottle holding a phone" },
-  { src: "/images/sanni-obsidian-phone.png", alt: "SANNI obsidian bottle used as a phone stand" },
-  { src: "/images/sanni-product-porcelain.png", alt: "Porcelain SANNI bottle" },
-  { src: "/images/sanni-blush-still.png", alt: "Soft blush SANNI bottle" },
-  { src: "/images/sanni-feature-overview.png", alt: "SANNI magnetic bottle feature overview" },
+  { src: "/images/sanni-magnetic-blush.png", alt: "SANNI blush bottle held beside a window", shape: "portrait" },
+  { src: "/images/sanni-obsidian-phone.png", alt: "SANNI obsidian bottle used as a phone stand", shape: "portrait" },
+  { src: "/images/sanni-product-porcelain.png", alt: "Porcelain SANNI bottle", shape: "square" },
+  { src: "/images/sanni-blush-still.png", alt: "Soft blush SANNI bottle", shape: "portrait" },
+  { src: "/images/sanni-feature-overview.png", alt: "SANNI magnetic bottle feature overview", shape: "square" },
 ];
 
 const marqueeRowTwo = [
-  { src: "/images/sanni-product-blush.png", alt: "Soft blush SANNI product view" },
-  { src: "/images/sanni-porcelain-phone.png", alt: "Porcelain SANNI bottle holding a phone" },
-  { src: "/images/sanni-obsidian-still.png", alt: "Obsidian SANNI bottle" },
-  { src: "/images/sanni-material-specs.png", alt: "SANNI material specifications" },
-  { src: "/images/sanni-product-obsidian.png", alt: "Obsidian SANNI product view" },
+  { src: "/images/sanni-product-blush.png", alt: "Soft blush SANNI product view", shape: "square" },
+  { src: "/images/sanni-porcelain-phone.png", alt: "Porcelain SANNI bottle holding a phone", shape: "portrait" },
+  { src: "/images/sanni-obsidian-still.png", alt: "Obsidian SANNI bottle held beside a window", shape: "portrait" },
+  { src: "/images/sanni-material-specs.png", alt: "SANNI material specifications", shape: "square" },
+  { src: "/images/sanni-product-obsidian.png", alt: "Obsidian SANNI product view", shape: "square" },
 ];
 
 const features = [
@@ -354,14 +354,14 @@ function MarqueeSection() {
     <section className="marquee-section" id="gallery" ref={ref} aria-label="SANNI in every moment">
       <motion.div className="marquee-row" style={{ x: rowOneX, willChange: "transform" }}>
         {first.map((image, index) => (
-          <div className="marquee-tile" key={`one-${index}`}>
+          <div className={`marquee-tile marquee-tile--${image.shape}`} key={`one-${index}`}>
             <Image src={image.src} alt={image.alt} fill sizes="420px" loading="lazy" />
           </div>
         ))}
       </motion.div>
       <motion.div className="marquee-row" style={{ x: rowTwoX, willChange: "transform" }}>
         {second.map((image, index) => (
-          <div className="marquee-tile" key={`two-${index}`}>
+          <div className={`marquee-tile marquee-tile--${image.shape}`} key={`two-${index}`}>
             <Image src={image.src} alt={image.alt} fill sizes="420px" loading="lazy" />
           </div>
         ))}
