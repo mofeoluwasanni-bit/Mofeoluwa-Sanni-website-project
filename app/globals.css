@@ -1358,6 +1358,126 @@ img {
   }
 }
 
+/* Unified cream-white canvas */
+:root {
+  --site-cream: #f2efe6;
+  --site-cream-deep: #e9e4d9;
+  --site-cream-soft: #f7f4ec;
+  --site-ink: #252622;
+}
+
+html,
+body,
+.sanni-site {
+  background: var(--site-cream);
+  color: var(--site-ink);
+}
+
+.hero-heading {
+  background: linear-gradient(180deg, #22231f 0%, #746d64 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-section,
+.marquee-section,
+.about-section,
+.features-section,
+.collection-section,
+.colorway-section {
+  background: var(--site-cream);
+}
+
+.hero-logo,
+.hero-nav,
+.hero-color-switcher,
+.hero-bottle-hotspot span {
+  background: rgba(242, 239, 230, 0.86);
+}
+
+.marquee-tile,
+.marquee-row:first-child .marquee-tile:nth-child(3n) img,
+.marquee-row:last-child .marquee-tile:nth-child(3n + 1) img,
+.about-object,
+.collection-small-images > div,
+.collection-large-image,
+.colorway-image-button {
+  background: var(--site-cream-deep);
+}
+
+.marquee-tile {
+  border-color: rgba(37, 38, 34, 0.08);
+}
+
+.about-object {
+  border-color: rgba(37, 38, 34, 0.12);
+  box-shadow: 0 24px 55px rgba(63, 56, 47, 0.12);
+}
+
+.animated-text {
+  color: #454640;
+}
+
+.features-section {
+  color: var(--site-ink);
+  box-shadow: inset 0 1px 0 rgba(37, 38, 34, 0.06);
+}
+
+.feature-list,
+.feature-item {
+  border-color: rgba(37, 38, 34, 0.15);
+}
+
+.feature-detail p {
+  color: rgba(37, 38, 34, 0.58);
+}
+
+.collection-section {
+  box-shadow: inset 0 1px 0 rgba(37, 38, 34, 0.07);
+}
+
+.collection-card {
+  border-color: rgba(37, 38, 34, 0.76);
+  background: var(--site-cream-deep);
+  box-shadow: 0 25px 70px rgba(63, 56, 47, 0.16);
+}
+
+.collection-card-head,
+.collection-number,
+.site-footer {
+  color: var(--site-ink);
+}
+
+.collection-category {
+  color: rgba(37, 38, 34, 0.58);
+}
+
+.collection-card-head .shop-button--outline {
+  border-color: var(--site-ink);
+  background: transparent;
+  color: var(--site-ink);
+}
+
+.collection-card-head .shop-button--outline:hover {
+  background: rgba(37, 38, 34, 0.07);
+}
+
+.site-footer img {
+  border-color: rgba(37, 38, 34, 0.14);
+}
+
+.colorway-description {
+  border-color: rgba(37, 38, 34, 0.08);
+  background: rgba(247, 244, 236, 0.92);
+}
+
+img[src*="sanni-product-"],
+img[src*="sanni-feature-overview"],
+img[src*="sanni-material-specs"] {
+  mix-blend-mode: multiply;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
