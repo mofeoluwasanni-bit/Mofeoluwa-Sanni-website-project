@@ -174,15 +174,15 @@ function ShopButton({ label = "Shop SANNI", outline = false }: { label?: string;
 }
 
 function Character({ progress, index, total, character }: { progress: MotionValue<number>; index: number; total: number; character: string }) {
-  const start = index / total;
-  const end = Math.min(1, start + 0.14);
+  const start = (index / total) * 0.48;
+  const end = Math.min(0.6, start + 0.1);
   const opacity = useTransform(progress, [start, end], [0.16, 1]);
   return <motion.span style={{ opacity }}>{character === " " ? "\u00A0" : character}</motion.span>;
 }
 
 function AnimatedText({ children }: { children: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.8", "end 0.2"] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.92", "end 0.35"] });
   const characters = children.split("");
 
   return (
@@ -481,9 +481,9 @@ function AboutSection() {
       </FadeIn>
 
       <div className="about-content">
-        <FadeIn y={40}><h2 className="section-display hero-heading">ABOUT SANNI</h2></FadeIn>
+        <FadeIn y={40}><h2 className="section-display hero-heading">ABOUT IT</h2></FadeIn>
         <AnimatedText>
-          SANNI is hydration designed for life in motion. A powerful magnetic phone mount, considered materials, and a refined silhouette come together so you can film, follow, call, create, and keep moving. Made for every moment—and made to look good in all of them.
+          This bottle is the peak of comfort, thoughtful design, lasting quality, and unmistakable originality. Its refined shape, dependable insulation, leakproof construction, and magnetic phone-ready lid make every sip—and every moment—feel easier, smarter, and uniquely yours.
         </AnimatedText>
         <FadeIn delay={0.25} y={20}><ShopButton /></FadeIn>
       </div>
