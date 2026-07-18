@@ -38,14 +38,14 @@ const colorways = [
   {
     name: "Black",
     shortName: "Black",
-    src: "/images/sanni-product-obsidian.png",
+    src: "/images/sanni-colorway-black.png",
     swatch: "#20211f",
     description: "Deep matte black with a durable coating designed to shrug off fingerprints.",
   },
   {
     name: "Pink",
     shortName: "Pink",
-    src: "/images/sanni-product-blush.png",
+    src: "/images/sanni-colorway-pink.png",
     swatch: "#e8c0b8",
     description: "A calm blush-pink finish that feels warm, modern, and unmistakably SANNI.",
   },
