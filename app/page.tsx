@@ -552,6 +552,20 @@ function SiteFooter() {
   );
 }
 
+function TikTokCallout() {
+  return (
+    <section className="tiktok-callout" aria-labelledby="tiktok-callout-title">
+      <FadeIn y={30} className="tiktok-callout-card">
+        <span className="tiktok-callout-eyebrow">SANNI on TikTok</span>
+        <h2 id="tiktok-callout-title">Wanna see the bottles in action?</h2>
+        <a href={TIKTOK_PROFILE_URL} target="_blank" rel="noreferrer">
+          Watch on TikTok <ArrowUpRight size={19} />
+        </a>
+      </FadeIn>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <main className="sanni-site overflow-x-clip">
@@ -560,6 +574,7 @@ export default function Home() {
       <ColorwaySection />
       <AboutSection />
       <FeaturesSection />
+      <TikTokCallout />
       <SiteFooter />
     </main>
   );
