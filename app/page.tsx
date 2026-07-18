@@ -350,12 +350,6 @@ function HeroSection() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="hero-desktop-copy">
-        <span>SANNI</span>
-        <h1>Your bottle.<br />Your <em>way.</em></h1>
-        <p>Made for every moment.</p>
-      </div>
-
       <FadeIn y={-20} className="hero-nav-wrap">
         <div className="hero-nav-cluster">
           <a className="hero-logo" href="#top" aria-label="SANNI home">
