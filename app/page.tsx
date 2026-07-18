@@ -549,21 +549,13 @@ function CollectionCard({ item, index, total }: { item: (typeof collection)[numb
   );
 }
 
-function CollectionSection() {
+function SiteFooter() {
   return (
-    <section className="collection-section" id="collection">
-      <FadeIn y={40}><h2 className="section-display hero-heading">THE COLLECTION</h2></FadeIn>
-      <div className="collection-stack">
-        {collection.map((item, index) => (
-          <CollectionCard key={item.name} item={item} index={index} total={collection.length} />
-        ))}
-      </div>
-      <footer className="site-footer">
-        <Image src="/images/sanni-logo.png" alt="SANNI" width={68} height={68} />
-        <p>Made for every moment.</p>
-        <a href={SHOP_URL} target="_blank" rel="noreferrer">TikTok Shop <ArrowUpRight size={16} /></a>
-      </footer>
-    </section>
+    <footer className="site-footer">
+      <Image src="/images/sanni-logo.png" alt="SANNI" width={68} height={68} />
+      <p>Made for every moment.</p>
+      <a href={SHOP_URL} target="_blank" rel="noreferrer">TikTok Shop <ArrowUpRight size={16} /></a>
+    </footer>
   );
 }
 
@@ -575,7 +567,7 @@ export default function Home() {
       <ColorwaySection />
       <AboutSection />
       <FeaturesSection />
-      <CollectionSection />
+      <SiteFooter />
     </main>
   );
 }
