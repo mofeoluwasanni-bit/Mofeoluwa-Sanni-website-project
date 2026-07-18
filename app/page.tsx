@@ -475,16 +475,16 @@ function AboutSection() {
   return (
     <section className="about-section min-h-screen" id="about">
       <FadeIn delay={0.1} x={-80} y={0} duration={0.9} className="about-object about-object--one">
-        <Image src="/images/sanni-product-porcelain.png" alt="Porcelain SANNI bottle" fill sizes="210px" />
+        <Image src="/images/about-porcelain-phone.png" alt="Porcelain SANNI bottle supporting a phone beside white flowers" fill sizes="240px" />
       </FadeIn>
       <FadeIn delay={0.25} x={-80} y={0} duration={0.9} className="about-object about-object--two">
-        <Image src="/images/sanni-feature-overview.png" alt="SANNI feature overview" fill sizes="180px" />
+        <Image src="/images/about-obsidian-phone.png" alt="Obsidian SANNI bottle supporting a phone beside white flowers" fill sizes="220px" />
       </FadeIn>
       <FadeIn delay={0.15} x={80} y={0} duration={0.9} className="about-object about-object--three">
-        <Image src="/images/sanni-product-obsidian.png" alt="Obsidian SANNI bottle" fill sizes="210px" />
+        <Image src="/images/about-blush-handheld.png" alt="Blush SANNI bottle held beside a window with a phone attached" fill sizes="240px" />
       </FadeIn>
       <FadeIn delay={0.3} x={80} y={0} duration={0.9} className="about-object about-object--four">
-        <Image src="/images/sanni-magnetic-blush.png" alt="Blush SANNI bottle magnetically holding a phone" fill sizes="220px" />
+        <Image src="/images/sanni-product-porcelain.png" alt="Porcelain SANNI bottle product view" fill sizes="220px" />
       </FadeIn>
 
       <div className="about-content">
