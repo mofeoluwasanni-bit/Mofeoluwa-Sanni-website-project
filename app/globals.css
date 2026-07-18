@@ -783,9 +783,19 @@ img {
 .colorway-image {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  background: var(--site-cream-deep, #e9e4d9);
+  opacity: 0;
+  isolation: isolate;
+  will-change: opacity;
+}
+
+.colorway-image.is-active {
+  z-index: 1;
 }
 
 .colorway-image img {
+  background: var(--site-cream-deep, #e9e4d9);
   padding: 3.5%;
   object-fit: contain;
   mix-blend-mode: multiply;
