@@ -419,16 +419,9 @@ function ColorwaySection() {
                   initial={false}
                   animate={{ opacity: isActive ? 1 : 0 }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ backgroundImage: `url("${colorway.src}")` }}
                   aria-hidden={!isActive}
-                >
-                  <Image
-                    src={colorway.src}
-                    alt={isActive ? `${colorway.name} SANNI bottle showcase` : ""}
-                    fill
-                    priority
-                    sizes="(max-width: 760px) 92vw, 48vw"
-                  />
-                </motion.span>
+                />
               );
             })}
             <span className="colorway-tap-label">Tap image for the next finish</span>

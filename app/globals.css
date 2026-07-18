@@ -784,21 +784,18 @@ img {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--site-cream-deep, #e9e4d9);
+  background-color: var(--site-cream-deep, #e9e4d9);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 93% 93%;
+  background-blend-mode: multiply;
   opacity: 0;
-  isolation: isolate;
+  transform: translateZ(0);
   will-change: opacity;
 }
 
 .colorway-image.is-active {
   z-index: 1;
-}
-
-.colorway-image img {
-  background: var(--site-cream-deep, #e9e4d9);
-  padding: 3.5%;
-  object-fit: contain;
-  mix-blend-mode: multiply;
 }
 
 .colorway-tap-label {
