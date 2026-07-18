@@ -429,6 +429,63 @@ function MarqueeSection() {
   );
 }
 
+function MagSafeGuideSection() {
+  return (
+    <section className="magsafe-guide-section" aria-labelledby="magsafe-guide-title">
+      <div className="magsafe-guide-shell">
+        <FadeIn y={28} className="magsafe-guide-copy">
+          <span className="magsafe-guide-eyebrow">Included with every bottle</span>
+          <h2 id="magsafe-guide-title">One bottle.<br /><em>Every phone.</em></h2>
+          <p>
+            Your SANNI arrives with a black MagSafe adapter ring already resting on the lid magnet, so magnetic and non-magnetic phones can both connect.
+          </p>
+          <div className="magsafe-direct-note">
+            <span className="magsafe-direct-icon" aria-hidden="true"><i /></span>
+            <div>
+              <strong>Already MagSafe?</strong>
+              <p>Slide the black adapter ring off the lid and set it aside. Your phone or MagSafe case snaps directly onto the bottle.</p>
+            </div>
+          </div>
+        </FadeIn>
+
+        <div className="magsafe-guide-steps" aria-label="How to use the included adapter ring with a non-magnetic phone">
+          <FadeIn delay={0.08} y={24} className="magsafe-step">
+            <div className="magsafe-step-head"><span>01</span><small>Slide off</small></div>
+            <div className="magsafe-step-visual magsafe-step-visual--slide" aria-hidden="true">
+              <span className="magsafe-lid"><i /></span>
+              <span className="magsafe-ring magsafe-ring--lifted" />
+              <span className="magsafe-motion-arrow">&rarr;</span>
+            </div>
+            <h3>Remove the ring</h3>
+            <p>Slide the included black adapter ring away from the bottle&apos;s magnetic lid.</p>
+          </FadeIn>
+
+          <FadeIn delay={0.16} y={24} className="magsafe-step">
+            <div className="magsafe-step-head"><span>02</span><small>Peel</small></div>
+            <div className="magsafe-step-visual magsafe-step-visual--peel" aria-hidden="true">
+              <span className="magsafe-ring magsafe-ring--peel"><i /></span>
+              <span className="magsafe-backing">Adhesive backing</span>
+            </div>
+            <h3>Peel the white backing</h3>
+            <p>Lift off the white protective tape to reveal the adhesive side of the ring.</p>
+          </FadeIn>
+
+          <FadeIn delay={0.24} y={24} className="magsafe-step">
+            <div className="magsafe-step-head"><span>03</span><small>Press &amp; snap</small></div>
+            <div className="magsafe-step-visual magsafe-step-visual--phone" aria-hidden="true">
+              <span className="magsafe-phone"><i /><b /><em /></span>
+              <span className="magsafe-press-mark">+</span>
+            </div>
+            <h3>Attach it to your phone</h3>
+            <p>Center and press it firmly onto a clean, dry phone or case. Then snap it onto the SANNI lid.</p>
+          </FadeIn>
+        </div>
+      </div>
+      <p className="magsafe-guide-footnote">For Androids, older phones, and cases without built-in magnetic attachment.</p>
+    </section>
+  );
+}
+
 function ColorwaySection() {
   const [activeColorway, setActiveColorway] = useState(1);
   const current = colorways[activeColorway];
@@ -617,6 +674,7 @@ export default function Home() {
   return (
     <main className="sanni-site overflow-x-clip">
       <HeroSection />
+      <MagSafeGuideSection />
       <MarqueeSection />
       <ColorwaySection />
       <AboutSection />
