@@ -33,6 +33,11 @@ const colorways = [
     shortName: "Cream",
     src: "/images/sanni-product-porcelain.png",
     swatch: "#eee9dc",
+    section: "#f2efe6",
+    panel: "#e9e4d9",
+    soft: "#f7f4ec",
+    accent: "#427792",
+    comingSoon: false,
     description: "A warm cream finish with a clean, soft presence that belongs everywhere.",
   },
   {
@@ -40,6 +45,11 @@ const colorways = [
     shortName: "Black",
     src: "/images/sanni-colorway-black.png",
     swatch: "#20211f",
+    section: "#f2efe6",
+    panel: "#e9e4d9",
+    soft: "#f7f4ec",
+    accent: "#427792",
+    comingSoon: false,
     description: "Deep matte black with a durable coating designed to shrug off fingerprints.",
   },
   {
@@ -47,7 +57,24 @@ const colorways = [
     shortName: "Pink",
     src: "/images/sanni-colorway-pink.png",
     swatch: "#e8c0b8",
+    section: "#f2efe6",
+    panel: "#e9e4d9",
+    soft: "#f7f4ec",
+    accent: "#427792",
+    comingSoon: false,
     description: "A calm blush-pink finish that feels warm, modern, and unmistakably SANNI.",
+  },
+  {
+    name: "Mint Blue",
+    shortName: "Mint",
+    src: "/images/sanni-colorway-mint.png",
+    swatch: "#bddfd9",
+    section: "#e3f1ee",
+    panel: "#cee7e2",
+    soft: "#eaf6f3",
+    accent: "#5f978f",
+    comingSoon: true,
+    description: "A fresh mint-blue finish designed to bring a cool, calming energy to every moment. Coming soon.",
   },
 ] as const;
 
@@ -406,7 +433,16 @@ function ColorwaySection() {
   const current = colorways[activeColorway];
 
   return (
-    <section className="colorway-section" id="colors">
+    <section
+      className="colorway-section"
+      id="colors"
+      style={{
+        "--colorway-section": current.section,
+        "--colorway-panel": current.panel,
+        "--colorway-soft": current.soft,
+        "--colorway-accent": current.accent,
+      } as React.CSSProperties}
+    >
       <div className="colorway-shell">
         <FadeIn y={30} className="colorway-visual">
           <button
@@ -463,7 +499,11 @@ function ColorwaySection() {
               {current.description}
             </motion.p>
           </AnimatePresence>
-          <ShopButton label={`Shop ${current.shortName}`} />
+          {current.comingSoon ? (
+            <span className="coming-soon-button" role="status">Mint Blue &mdash; Coming Soon</span>
+          ) : (
+            <ShopButton label={`Shop ${current.shortName}`} />
+          )}
         </FadeIn>
       </div>
     </section>

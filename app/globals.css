@@ -815,8 +815,9 @@ img {
   min-height: 100svh;
   place-items: center;
   padding: clamp(80px, 9vw, 140px) clamp(22px, 6vw, 86px);
-  background: #f1efe7;
+  background: var(--colorway-section, #f1efe7);
   color: #242522;
+  transition: background-color 420ms ease;
 }
 
 .colorway-shell {
@@ -838,16 +839,17 @@ img {
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: clamp(38px, 5vw, 56px);
-  background: #e8e5dc;
+  background: var(--colorway-panel, #e8e5dc);
   box-shadow: 0 24px 70px rgba(63, 56, 47, 0.08);
   cursor: pointer;
+  transition: background-color 420ms ease;
 }
 
 .colorway-image {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-color: var(--site-cream-deep, #e9e4d9);
+  background-color: var(--colorway-panel, var(--site-cream-deep, #e9e4d9));
   background-position: center;
   background-repeat: no-repeat;
   background-size: 93% 93%;
@@ -950,12 +952,12 @@ img {
 }
 
 .colorway-options button.is-active .colorway-ring {
-  border-color: #427792;
-  box-shadow: 0 0 0 2px #427792;
+  border-color: var(--colorway-accent, #427792);
+  box-shadow: 0 0 0 2px var(--colorway-accent, #427792);
 }
 
 .colorway-options button:focus-visible {
-  outline: 2px solid #427792;
+  outline: 2px solid var(--colorway-accent, #427792);
   outline-offset: 5px;
   border-radius: 4px;
 }
@@ -967,10 +969,11 @@ img {
   padding: 21px 24px;
   border: 1px solid rgba(36, 37, 34, 0.06);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.76);
+  background: var(--colorway-soft, rgba(255, 255, 255, 0.76));
   font-size: clamp(0.9rem, 1.2vw, 1.05rem);
   font-weight: 300;
   line-height: 1.5;
+  transition: background-color 420ms ease;
 }
 
 .colorway-details .shop-button {
@@ -980,6 +983,23 @@ img {
   outline: 0;
   background: #20211f;
   box-shadow: 0 10px 28px rgba(32, 33, 31, 0.16);
+}
+
+.coming-soon-button {
+  display: inline-flex;
+  min-width: 138px;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 22px;
+  border: 1px solid rgba(36, 37, 34, 0.1);
+  border-radius: 999px;
+  background: var(--colorway-accent, #5f978f);
+  box-shadow: 0 10px 28px rgba(69, 118, 111, 0.18);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
 /* About */
@@ -1524,8 +1544,7 @@ body,
 .marquee-section,
 .about-section,
 .features-section,
-.collection-section,
-.colorway-section {
+.collection-section {
   background: var(--site-cream);
 }
 
@@ -1540,8 +1559,7 @@ body,
 .marquee-row:first-child .marquee-tile:nth-child(3n) img,
 .marquee-row:last-child .marquee-tile:nth-child(3n + 1) img,
 .collection-small-images > div,
-.collection-large-image,
-.colorway-image-button {
+.collection-large-image {
   background: var(--site-cream-deep);
 }
 
@@ -1608,7 +1626,7 @@ body,
 
 .colorway-description {
   border-color: rgba(37, 38, 34, 0.08);
-  background: rgba(247, 244, 236, 0.92);
+  background: var(--colorway-soft, rgba(247, 244, 236, 0.92));
 }
 
 img[src*="sanni-product-"],
