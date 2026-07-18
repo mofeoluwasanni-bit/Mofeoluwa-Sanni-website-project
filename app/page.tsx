@@ -22,9 +22,9 @@ const SHOP_URL = "https://shop.tiktok.com/us/pdp/1732474986384560309";
 const TIKTOK_PROFILE_URL = "https://www.tiktok.com/@sanni.co2";
 
 const heroCampaigns = [
-  { name: "Soft Blush", src: "/images/sanni-campaign-blush.png", swatch: "#d8b5b0" },
-  { name: "Obsidian", src: "/images/sanni-campaign-obsidian.png", swatch: "#222321" },
-  { name: "Porcelain", src: "/images/sanni-campaign-porcelain.png", swatch: "#eee9dc" },
+  { name: "Soft Blush", src: "/images/sanni-campaign-blush-way-v2.png", swatch: "#d8b5b0" },
+  { name: "Obsidian", src: "/images/sanni-campaign-obsidian-way-v2.png", swatch: "#222321" },
+  { name: "Porcelain", src: "/images/sanni-campaign-porcelain-way-v2.png", swatch: "#eee9dc" },
 ] as const;
 
 const colorways = [
