@@ -83,12 +83,14 @@ const marqueeRowOne = [
   { src: "/images/sanni-obsidian-phone.png", alt: "SANNI obsidian bottle used as a phone stand", shape: "portrait" },
   { src: "/images/sanni-product-porcelain.png", alt: "Porcelain SANNI bottle", shape: "square" },
   { src: "/images/sanni-blush-still.png", alt: "Soft blush SANNI bottle", shape: "portrait" },
+  { src: "/images/sanni-blush-open-lifestyle.png", alt: "Soft blush SANNI bottle with its lid open beside a window", shape: "portrait" },
   { src: "/images/sanni-feature-overview.png", alt: "SANNI magnetic bottle feature overview", shape: "square" },
 ];
 
 const marqueeRowTwo = [
   { src: "/images/sanni-product-blush.png", alt: "Soft blush SANNI product view", shape: "square" },
   { src: "/images/sanni-porcelain-phone.png", alt: "Porcelain SANNI bottle holding a phone", shape: "portrait" },
+  { src: "/images/sanni-porcelain-magnetic-lifestyle.png", alt: "Porcelain SANNI bottle magnetically holding a phone beside white flowers", shape: "portrait" },
   { src: "/images/sanni-obsidian-still.png", alt: "Obsidian SANNI bottle holding a phone beside a window", shape: "portrait" },
   { src: "/images/sanni-material-specs.png", alt: "SANNI material specifications", shape: "square" },
   { src: "/images/sanni-product-obsidian.png", alt: "Obsidian SANNI product view", shape: "square" },
