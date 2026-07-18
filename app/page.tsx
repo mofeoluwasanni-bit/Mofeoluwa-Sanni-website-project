@@ -89,7 +89,7 @@ const marqueeRowOne = [
 const marqueeRowTwo = [
   { src: "/images/sanni-product-blush.png", alt: "Soft blush SANNI product view", shape: "square" },
   { src: "/images/sanni-porcelain-phone.png", alt: "Porcelain SANNI bottle holding a phone", shape: "portrait" },
-  { src: "/images/sanni-obsidian-still.png", alt: "Obsidian SANNI bottle held beside a window", shape: "portrait" },
+  { src: "/images/sanni-obsidian-still.png", alt: "Obsidian SANNI bottle holding a phone beside a window", shape: "portrait" },
   { src: "/images/sanni-material-specs.png", alt: "SANNI material specifications", shape: "square" },
   { src: "/images/sanni-product-obsidian.png", alt: "Obsidian SANNI product view", shape: "square" },
 ];
