@@ -531,7 +531,7 @@ function AboutSection() {
       <div className="about-content">
         <FadeIn y={40}><h2 className="section-display hero-heading">ABOUT IT</h2></FadeIn>
         <AnimatedText>
-          This bottle is the peak of comfort, thoughtful design, lasting quality, and unmistakable originality. Its refined shape, dependable insulation, leakproof construction, and magnetic phone-ready lid make every sip—and every moment—feel easier, smarter, and uniquely yours.
+          This bottle does it all. Comfortable to hold, built to last, and keeps your drink cold or hot for hours. No leaks, no spills — and the magnetic lid means your phone snaps right on top. Simple, reliable, and made to fit your everyday.
         </AnimatedText>
         <FadeIn delay={0.25} y={20}><ShopButton /></FadeIn>
       </div>
