@@ -447,7 +447,7 @@ function MagSafeGuideSection() {
             <div className="magsafe-step-head"><span>01</span><small>Included</small></div>
             <div className="magsafe-step-photo">
               <Image
-                src="/images/magsafe-guide-01-attached.png"
+                src="/images/magsafe-guide-01-attached.jpg"
                 alt="Black MagSafe adapter ring resting on the pink SANNI bottle lid"
                 fill
                 unoptimized
@@ -463,7 +463,7 @@ function MagSafeGuideSection() {
             <div className="magsafe-step-head"><span>02</span><small>Slide off</small></div>
             <div className="magsafe-step-photo">
               <Image
-                src="/images/magsafe-guide-02-removed.png"
+                src="/images/magsafe-guide-02-removed.jpg"
                 alt="Black MagSafe adapter ring removed from the pink SANNI bottle lid"
                 fill
                 unoptimized
@@ -479,7 +479,7 @@ function MagSafeGuideSection() {
             <div className="magsafe-step-head"><span>03</span><small>Peel</small></div>
             <div className="magsafe-step-photo">
               <Image
-                src="/images/magsafe-guide-03-peel.png"
+                src="/images/magsafe-guide-03-peel.jpg"
                 alt="White protective backing being peeled from the black MagSafe adapter ring"
                 fill
                 unoptimized
@@ -495,7 +495,7 @@ function MagSafeGuideSection() {
             <div className="magsafe-step-head"><span>04</span><small>Press &amp; snap</small></div>
             <div className="magsafe-step-photo">
               <Image
-                src="/images/magsafe-guide-04-phone.png"
+                src="/images/magsafe-guide-04-phone.jpg"
                 alt="Black MagSafe adapter ring attached to the back of an older iPhone"
                 fill
                 unoptimized
