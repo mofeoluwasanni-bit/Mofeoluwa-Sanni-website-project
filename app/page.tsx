@@ -353,7 +353,7 @@ function HeroSection() {
       <FadeIn y={-20} className="hero-nav-wrap">
         <div className="hero-nav-cluster">
           <a className="hero-logo" href="#top" aria-label="SANNI home">
-            <Image src="/images/sanni-logo.png" alt="SANNI" width={52} height={52} priority />
+            <img src="/images/sanni-header-logo-v2.png" alt="SANNI" width={52} height={52} />
           </a>
           <nav className="hero-nav" aria-label="Main navigation">
             <a href={TIKTOK_PROFILE_URL} target="_blank" rel="noreferrer">Story</a>
