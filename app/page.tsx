@@ -437,7 +437,7 @@ function MagSafeGuideSection() {
             <span className="magsafe-direct-icon" aria-hidden="true"><i /></span>
             <div>
               <strong>Already MagSafe?</strong>
-              <p>Slide the black adapter ring off the lid and set it aside. Your phone or MagSafe case snaps directly onto the bottle.</p>
+              <p>If your phone has built-in magnets (iPhone 12 or newer, Google Pixel 10, or HMD Skyline), you don&apos;t need to follow the ring instructions — just make sure your case is MagSafe or Qi2 compatible, then snap your phone straight onto the bottle.</p>
             </div>
           </div>
         </FadeIn>
