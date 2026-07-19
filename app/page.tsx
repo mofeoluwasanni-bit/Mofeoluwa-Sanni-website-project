@@ -67,7 +67,7 @@ const colorways = [
   {
     name: "Mint Blue",
     shortName: "Mint",
-    src: "/images/sanni-colorway-mint.png",
+    src: "/images/sanni-colorway-mint-v2.jpg",
     swatch: "#bddfd9",
     section: "#e3f1ee",
     panel: "#cee7e2",
