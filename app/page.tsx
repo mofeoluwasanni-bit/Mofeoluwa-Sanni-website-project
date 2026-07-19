@@ -444,31 +444,64 @@ function MagSafeGuideSection() {
 
         <div className="magsafe-guide-steps" aria-label="How to use the included adapter ring with a non-magnetic phone">
           <FadeIn delay={0.08} y={24} className="magsafe-step">
-            <div className="magsafe-step-head"><span>01</span><small>Slide off</small></div>
-            <div className="magsafe-step-visual magsafe-step-visual--slide" aria-hidden="true">
-              <span className="magsafe-lid"><i /></span>
-              <span className="magsafe-ring magsafe-ring--lifted" />
-              <span className="magsafe-motion-arrow">&rarr;</span>
+            <div className="magsafe-step-head"><span>01</span><small>Included</small></div>
+            <div className="magsafe-step-photo">
+              <Image
+                src="/images/magsafe-guide-01-attached.png"
+                alt="Black MagSafe adapter ring resting on the pink SANNI bottle lid"
+                fill
+                unoptimized
+                style={{ objectFit: "contain" }}
+                sizes="(max-width: 760px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              />
             </div>
-            <h3>Remove the ring</h3>
-            <p>Slide the included black adapter ring away from the bottle&apos;s magnetic lid.</p>
+            <h3>Find the included ring</h3>
+            <p>The black adapter ring arrives attached to the bottle&apos;s magnetic lid.</p>
           </FadeIn>
 
           <FadeIn delay={0.16} y={24} className="magsafe-step">
-            <div className="magsafe-step-head"><span>02</span><small>Peel</small></div>
-            <div className="magsafe-step-visual magsafe-step-visual--peel" aria-hidden="true">
-              <span className="magsafe-ring magsafe-ring--peel"><i /></span>
-              <span className="magsafe-backing">Adhesive backing</span>
+            <div className="magsafe-step-head"><span>02</span><small>Slide off</small></div>
+            <div className="magsafe-step-photo">
+              <Image
+                src="/images/magsafe-guide-02-removed.png"
+                alt="Black MagSafe adapter ring removed from the pink SANNI bottle lid"
+                fill
+                unoptimized
+                style={{ objectFit: "contain" }}
+                sizes="(max-width: 760px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              />
             </div>
-            <h3>Peel the white backing</h3>
-            <p>Lift off the white protective tape to reveal the adhesive side of the ring.</p>
+            <h3>Remove the ring</h3>
+            <p>Slide the adapter ring away from the lid. If your phone or case already supports MagSafe, set it aside and connect directly.</p>
           </FadeIn>
 
           <FadeIn delay={0.24} y={24} className="magsafe-step">
-            <div className="magsafe-step-head"><span>03</span><small>Press &amp; snap</small></div>
-            <div className="magsafe-step-visual magsafe-step-visual--phone" aria-hidden="true">
-              <span className="magsafe-phone"><i /><b /><em /></span>
-              <span className="magsafe-press-mark">+</span>
+            <div className="magsafe-step-head"><span>03</span><small>Peel</small></div>
+            <div className="magsafe-step-photo">
+              <Image
+                src="/images/magsafe-guide-03-peel.png"
+                alt="White protective backing being peeled from the black MagSafe adapter ring"
+                fill
+                unoptimized
+                style={{ objectFit: "contain" }}
+                sizes="(max-width: 760px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              />
+            </div>
+            <h3>Peel the white backing</h3>
+            <p>For a non-magnetic phone or case, remove the white protective layer to expose the adhesive.</p>
+          </FadeIn>
+
+          <FadeIn delay={0.32} y={24} className="magsafe-step">
+            <div className="magsafe-step-head"><span>04</span><small>Press &amp; snap</small></div>
+            <div className="magsafe-step-photo">
+              <Image
+                src="/images/magsafe-guide-04-phone.png"
+                alt="Black MagSafe adapter ring attached to the back of an older iPhone"
+                fill
+                unoptimized
+                style={{ objectFit: "contain" }}
+                sizes="(max-width: 760px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              />
             </div>
             <h3>Attach it to your phone</h3>
             <p>Center and press it firmly onto a clean, dry phone or case. Then snap it onto the SANNI lid.</p>
