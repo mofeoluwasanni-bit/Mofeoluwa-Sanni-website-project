@@ -443,8 +443,7 @@ function MagSafeGuideSection() {
         </FadeIn>
 
         <FadeIn delay={0.04} y={18} className="magsafe-guide-instruction-title">
-          <span>Adapter ring setup</span>
-          <h3>If your phone isn&apos;t MagSafe compatible, follow these instructions.</h3>
+          <h3>For Androids, older phones, and cases without built-in magnetic attachment.</h3>
         </FadeIn>
 
         <div className="magsafe-guide-steps" aria-label="How to use the included adapter ring with a non-magnetic phone">
@@ -513,7 +512,6 @@ function MagSafeGuideSection() {
           </FadeIn>
         </div>
       </div>
-      <p className="magsafe-guide-footnote">For Androids, older phones, and cases without built-in magnetic attachment.</p>
     </section>
   );
 }

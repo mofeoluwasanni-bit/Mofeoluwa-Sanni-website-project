@@ -841,27 +841,18 @@ img {
   display: flex;
   margin-top: clamp(48px, 6vw, 82px);
   padding: 0 4px 18px;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 28px;
+  align-items: flex-start;
+  justify-content: flex-start;
   border-bottom: 1px solid rgba(37, 38, 34, 0.14);
 }
 
-.magsafe-guide-instruction-title span {
-  flex: 0 0 auto;
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
 .magsafe-guide-instruction-title h3 {
-  max-width: 760px;
+  max-width: 920px;
   font-size: clamp(1.45rem, 2.6vw, 2.7rem);
   font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 1.05;
-  text-align: right;
+  text-align: left;
 }
 
 .magsafe-step {
@@ -1076,19 +1067,6 @@ img {
   line-height: 1.5;
 }
 
-.magsafe-guide-footnote {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 1380px);
-  margin: 28px auto 0;
-  color: rgba(37, 38, 34, 0.48);
-  font-size: 0.67rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-align: right;
-  text-transform: uppercase;
-}
-
 @media (max-width: 1080px) {
   .magsafe-guide-copy > p {
     max-width: 680px;
@@ -1112,22 +1090,8 @@ img {
     grid-template-columns: 1fr;
   }
 
-  .magsafe-guide-instruction-title {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .magsafe-guide-instruction-title h3 {
-    text-align: left;
-  }
-
   .magsafe-step {
     min-height: 0;
-  }
-
-  .magsafe-guide-footnote {
-    text-align: left;
   }
 }
 
