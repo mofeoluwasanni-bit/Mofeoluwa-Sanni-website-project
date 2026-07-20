@@ -676,7 +676,6 @@ function CollectionCard({ item, index, total }: { item: (typeof collection)[numb
 function SiteFooter() {
   return (
     <footer className="site-footer">
-      <Image src="/images/sanni-logo.png" alt="SANNI" width={68} height={68} />
       <p>Made for every moment.</p>
       <a href={SHOP_URL} target="_blank" rel="noreferrer">TikTok Shop <ArrowUpRight size={16} /></a>
     </footer>
