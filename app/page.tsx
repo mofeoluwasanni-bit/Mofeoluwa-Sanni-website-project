@@ -201,14 +201,14 @@ function ShopButton({ label = "Shop SANNI", outline = false }: { label?: string;
   );
 }
 
-function Character({ progress, index, total, character }: { progress: MotionValue<number>; index: number; total: number; character: string }) {
+function Character({ progress, index, total, character, emphasized = false }: { progress: MotionValue<number>; index: number; total: number; character: string; emphasized?: boolean }) {
   const start = (index / total) * 0.48;
   const end = Math.min(0.6, start + 0.1);
   const opacity = useTransform(progress, [start, end], [0.16, 1]);
-  return <motion.span style={{ opacity }}>{character === " " ? "\u00A0" : character}</motion.span>;
+  return <motion.span className={emphasized ? "is-emphasized" : undefined} style={{ opacity }}>{character === " " ? "\u00A0" : character}</motion.span>;
 }
 
-function AnimatedText({ children }: { children: string }) {
+function AnimatedText({ children, emphasis = "" }: { children: string; emphasis?: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.92", "end 0.35"] });
   const characters = children.split("");
@@ -216,7 +216,7 @@ function AnimatedText({ children }: { children: string }) {
   return (
     <p ref={ref} className="animated-text">
       {characters.map((character, index) => (
-        <Character key={`${character}-${index}`} progress={scrollYProgress} index={index} total={characters.length} character={character} />
+        <Character key={`${character}-${index}`} progress={scrollYProgress} index={index} total={characters.length} character={character} emphasized={index < emphasis.length} />
       ))}
     </p>
   );
@@ -613,8 +613,8 @@ function AboutSection() {
 
       <div className="about-content">
         <FadeIn y={40}><h2 className="section-display hero-heading">ABOUT IT</h2></FadeIn>
-        <AnimatedText>
-          This bottle does it all. Comfortable to hold, built to last, and keeps your drink cold or hot for hours. No leaks, no spills — and the magnetic lid means your phone snaps right on top. Simple, reliable, and made to fit your everyday.
+        <AnimatedText emphasis="This bottle does it all.">
+          This bottle does it all. It's comfortable to hold, built to last through daily use, and keeps your drinks cold or hot for hours at a time. No leaks, no spills, no mess to worry about — and thanks to the magnetic lid, your phone snaps right on top whenever you need it close by. Simple to use, reliable every time, and made to fit effortlessly into your everyday routine.
         </AnimatedText>
         <FadeIn delay={0.25} y={20}><ShopButton /></FadeIn>
       </div>

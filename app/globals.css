@@ -1361,6 +1361,10 @@ img {
   line-height: 1.6;
 }
 
+.animated-text .is-emphasized {
+  font-weight: 700;
+}
+
 .about-object {
   position: absolute;
   z-index: 2;
