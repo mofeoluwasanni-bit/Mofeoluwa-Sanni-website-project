@@ -363,7 +363,10 @@ function HeroSection() {
 
       <div className="hero-mobile-copy">
         <span>SANNI</span>
-        <h1>Your bottle.<br />Your <em>way.</em></h1>
+        <h1 aria-label="Your bottle. Your way.">
+          <span>Your bottle.</span>
+          <span>Your <em>way.</em></span>
+        </h1>
         <p>Made for every moment.</p>
       </div>
 
