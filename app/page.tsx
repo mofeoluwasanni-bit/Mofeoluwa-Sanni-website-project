@@ -608,7 +608,7 @@ function AboutSection() {
       <div className="about-content">
         <FadeIn y={40}><h2 className="section-display hero-heading">ABOUT IT</h2></FadeIn>
         <AnimatedText emphasis="This bottle does it all.">
-          This bottle does it all. It's comfortable to hold, built to last through daily use, and keeps your drinks cold or hot for hours at a time. No leaks, no spills, no mess to worry about — and thanks to the magnetic lid, your phone snaps right on top whenever you need it close by. Simple to use, reliable every time, and made to fit effortlessly into your everyday routine.
+          {"This bottle does it all. It's comfortable to hold, built to last through daily use, and keeps your drinks cold or hot for hours at a time. No leaks, no spills, no mess to worry about — and thanks to the magnetic lid, your phone snaps right on top whenever you need it close by. Simple to use, reliable every time, and made to fit effortlessly into your everyday routine."}
         </AnimatedText>
         <FadeIn delay={0.25} y={20}><ShopButton /></FadeIn>
       </div>
@@ -637,33 +637,6 @@ function FeaturesSection() {
         })}
       </div>
     </section>
-  );
-}
-
-function CollectionCard({ item, index, total }: { item: (typeof collection)[number]; index: number; total: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const targetScale = 1 - (total - 1 - index) * 0.03;
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
-
-  return (
-    <div className="collection-card-space" ref={ref}>
-      <motion.article className="collection-card" style={{ scale, top: `calc(6rem + ${index * 28}px)`, "--tone": item.tone } as React.CSSProperties}>
-        <div className="collection-card-head">
-          <span className="collection-number">{item.number}</span>
-          <span className="collection-category">{item.category}</span>
-          <h3>{item.name}</h3>
-          <ShopButton label="Shop this color" outline />
-        </div>
-        <div className="collection-images-grid">
-          <div className="collection-small-images">
-            <div><Image src={item.images[0]} alt={`${item.name} SANNI bottle product view`} fill sizes="40vw" /></div>
-            <div><Image src={item.images[1]} alt={`${item.name} SANNI bottle lifestyle view`} fill sizes="40vw" /></div>
-          </div>
-          <div className="collection-large-image"><Image src={item.images[2]} alt={`${item.name} SANNI bottle detail`} fill sizes="60vw" /></div>
-        </div>
-      </motion.article>
-    </div>
   );
 }
 
