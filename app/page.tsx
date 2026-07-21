@@ -23,19 +23,19 @@ const TIKTOK_PROFILE_URL = "https://www.tiktok.com/@sanni.co2";
 
 const heroCampaigns = [
   {
-    name: "Soft Blush",
+    name: "Pink",
     src: "/images/sanni-campaign-blush-way-fade-v3.png",
     mobileSrc: "/images/sanni-campaign-blush-mobile-v1.png",
     swatch: "#d8b5b0",
   },
   {
-    name: "Obsidian",
+    name: "Black",
     src: "/images/sanni-campaign-obsidian-way-fade-v3.png",
     mobileSrc: "/images/sanni-campaign-obsidian-mobile-v1.png",
     swatch: "#222321",
   },
   {
-    name: "Porcelain",
+    name: "Cream White",
     src: "/images/sanni-campaign-porcelain-way-fade-v3.png",
     mobileSrc: "/images/sanni-campaign-porcelain-mobile-v1.png",
     swatch: "#eee9dc",
@@ -45,7 +45,7 @@ const heroCampaigns = [
 const colorways = [
   {
     name: "Cream White",
-    shortName: "Cream",
+    shortName: "Cream White",
     src: "/images/sanni-product-porcelain.png",
     swatch: "#eee9dc",
     section: "#f2efe6",
@@ -95,19 +95,19 @@ const colorways = [
 
 const marqueeRowOne = [
   { src: "/images/sanni-magnetic-blush.png", alt: "SANNI blush bottle held beside a window", shape: "portrait" },
-  { src: "/images/sanni-obsidian-phone.png", alt: "SANNI obsidian bottle used as a phone stand", shape: "portrait" },
-  { src: "/images/sanni-product-porcelain.png", alt: "Porcelain SANNI bottle", shape: "square" },
-  { src: "/images/sanni-blush-still.png", alt: "Soft blush SANNI bottle", shape: "portrait" },
-  { src: "/images/sanni-blush-open-lifestyle.png", alt: "Soft blush SANNI bottle with its lid open beside a window", shape: "portrait" },
+  { src: "/images/sanni-obsidian-phone.png", alt: "Black SANNI bottle used as a phone stand", shape: "portrait" },
+  { src: "/images/sanni-product-porcelain.png", alt: "Cream White SANNI bottle", shape: "square" },
+  { src: "/images/sanni-blush-still.png", alt: "Pink SANNI bottle", shape: "portrait" },
+  { src: "/images/sanni-blush-open-lifestyle.png", alt: "Pink SANNI bottle with its lid open beside a window", shape: "portrait" },
   { src: "/images/sanni-feature-overview.png", alt: "SANNI magnetic bottle feature overview", shape: "square" },
 ];
 
 const marqueeRowTwo = [
-  { src: "/images/sanni-product-blush.png", alt: "Soft blush SANNI product view", shape: "square" },
-  { src: "/images/sanni-porcelain-phone.png", alt: "Porcelain SANNI bottle holding a phone", shape: "portrait" },
-  { src: "/images/sanni-porcelain-magnetic-lifestyle.png", alt: "Porcelain SANNI bottle magnetically holding a phone beside white flowers", shape: "portrait" },
-  { src: "/images/sanni-obsidian-still.png", alt: "Obsidian SANNI bottle holding a phone beside a window", shape: "portrait" },
-  { src: "/images/sanni-product-obsidian.png", alt: "Obsidian SANNI product view", shape: "square" },
+  { src: "/images/sanni-product-blush.png", alt: "Pink SANNI product view", shape: "square" },
+  { src: "/images/sanni-porcelain-phone.png", alt: "Cream White SANNI bottle holding a phone", shape: "portrait" },
+  { src: "/images/sanni-porcelain-magnetic-lifestyle.png", alt: "Cream White SANNI bottle magnetically holding a phone beside white flowers", shape: "portrait" },
+  { src: "/images/sanni-obsidian-still.png", alt: "Black SANNI bottle holding a phone beside a window", shape: "portrait" },
+  { src: "/images/sanni-product-obsidian.png", alt: "Black SANNI product view", shape: "square" },
 ];
 
 const features = [
@@ -140,42 +140,6 @@ const features = [
     name: "BPA-Free Design",
     description: "Thoughtful materials and a comfortable carry ring, made to become part of your everyday rhythm.",
     icon: Leaf,
-  },
-] as const;
-
-const collection = [
-  {
-    number: "01",
-    category: "Warm / Quiet",
-    name: "Soft Blush",
-    tone: "#d4b2b0",
-    images: [
-      "/images/sanni-product-blush.png",
-      "/images/sanni-blush-still.png",
-      "/images/sanni-magnetic-blush.png",
-    ],
-  },
-  {
-    number: "02",
-    category: "Bold / Minimal",
-    name: "Obsidian",
-    tone: "#252725",
-    images: [
-      "/images/sanni-product-obsidian.png",
-      "/images/sanni-obsidian-still.png",
-      "/images/sanni-obsidian-phone.png",
-    ],
-  },
-  {
-    number: "03",
-    category: "Clean / Timeless",
-    name: "Porcelain",
-    tone: "#e8e6de",
-    images: [
-      "/images/sanni-product-porcelain.png",
-      "/images/sanni-porcelain-phone.png",
-      "/images/sanni-material-specs.png",
-    ],
   },
 ] as const;
 
@@ -629,16 +593,16 @@ function AboutSection() {
   return (
     <section className="about-section min-h-screen" id="about">
       <FadeIn delay={0.1} x={-80} y={0} duration={0.9} className="about-object about-object--one">
-        <Image src="/images/about-porcelain-phone.png" alt="Porcelain SANNI bottle supporting a phone beside white flowers" fill sizes="240px" />
+        <Image src="/images/about-porcelain-phone.png" alt="Cream White SANNI bottle supporting a phone beside white flowers" fill sizes="240px" />
       </FadeIn>
       <FadeIn delay={0.25} x={-80} y={0} duration={0.9} className="about-object about-object--two">
-        <Image src="/images/about-obsidian-phone.png" alt="Obsidian SANNI bottle supporting a phone beside white flowers" fill sizes="220px" />
+        <Image src="/images/about-obsidian-phone.png" alt="Black SANNI bottle supporting a phone beside white flowers" fill sizes="220px" />
       </FadeIn>
       <FadeIn delay={0.15} x={80} y={0} duration={0.9} className="about-object about-object--three">
-        <Image src="/images/about-blush-handheld.png" alt="Blush SANNI bottle held beside a window with a phone attached" fill sizes="240px" />
+        <Image src="/images/about-blush-handheld.png" alt="Pink SANNI bottle held beside a window with a phone attached" fill sizes="240px" />
       </FadeIn>
       <FadeIn delay={0.3} x={80} y={0} duration={0.9} className="about-object about-object--four">
-        <Image src="/images/sanni-product-porcelain.png" alt="Porcelain SANNI bottle product view" fill sizes="220px" />
+        <Image src="/images/sanni-product-porcelain.png" alt="Cream White SANNI bottle product view" fill sizes="220px" />
       </FadeIn>
 
       <div className="about-content">
