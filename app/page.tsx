@@ -16,15 +16,30 @@ import {
   ShieldCheck,
   Snowflake,
 } from "lucide-react";
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 const SHOP_URL = "https://shop.tiktok.com/us/pdp/1732474986384560309";
 const TIKTOK_PROFILE_URL = "https://www.tiktok.com/@sanni.co2";
 
 const heroCampaigns = [
-  { name: "Soft Blush", src: "/images/sanni-campaign-blush-way-fade-v3.png", swatch: "#d8b5b0" },
-  { name: "Obsidian", src: "/images/sanni-campaign-obsidian-way-fade-v3.png", swatch: "#222321" },
-  { name: "Porcelain", src: "/images/sanni-campaign-porcelain-way-fade-v3.png", swatch: "#eee9dc" },
+  {
+    name: "Soft Blush",
+    src: "/images/sanni-campaign-blush-way-fade-v3.png",
+    mobileSrc: "/images/sanni-campaign-blush-mobile-v1.png",
+    swatch: "#d8b5b0",
+  },
+  {
+    name: "Obsidian",
+    src: "/images/sanni-campaign-obsidian-way-fade-v3.png",
+    mobileSrc: "/images/sanni-campaign-obsidian-mobile-v1.png",
+    swatch: "#222321",
+  },
+  {
+    name: "Porcelain",
+    src: "/images/sanni-campaign-porcelain-way-fade-v3.png",
+    mobileSrc: "/images/sanni-campaign-porcelain-mobile-v1.png",
+    swatch: "#eee9dc",
+  },
 ] as const;
 
 const colorways = [
@@ -328,6 +343,15 @@ function HeroSection() {
   const current = heroCampaigns[activeColor];
   const nextColor = () => setActiveColor((activeColor + 1) % heroCampaigns.length);
 
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 640px)").matches;
+
+    heroCampaigns.forEach((campaign) => {
+      const image = new window.Image();
+      image.src = mobile ? campaign.mobileSrc : campaign.src;
+    });
+  }, []);
+
   return (
     <section className="hero-section min-h-screen" id="top">
       <AnimatePresence mode="popLayout" initial={false}>
@@ -339,14 +363,17 @@ function HeroSection() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Image
-            className="hero-campaign-image"
-            src={current.src}
-            alt={`${current.name} SANNI magnetic bottle campaign`}
-            fill
-            priority
-            sizes="100vw"
-          />
+          <picture>
+            <source media="(max-width: 640px)" srcSet={current.mobileSrc} />
+            <Image
+              className="hero-campaign-image"
+              src={current.src}
+              alt={`${current.name} SANNI magnetic bottle campaign`}
+              fill
+              priority
+              sizes="100vw"
+            />
+          </picture>
         </motion.div>
       </AnimatePresence>
 

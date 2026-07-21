@@ -1772,7 +1772,8 @@ img {
   }
 
   .hero-campaign-image {
-    object-position: 68% center;
+    object-fit: contain;
+    object-position: center top;
   }
 
   .hero-mobile-copy {
