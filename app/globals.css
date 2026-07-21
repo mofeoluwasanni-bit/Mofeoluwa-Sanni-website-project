@@ -1351,14 +1351,21 @@ img {
 }
 
 .animated-text {
-  display: flex;
+  display: block;
   max-width: 690px;
-  flex-wrap: wrap;
-  justify-content: center;
   color: var(--mist);
   font-size: clamp(1rem, 1.9vw, 1.35rem);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.6;
+  text-align: center;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.animated-word {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .animated-text .is-emphasized {

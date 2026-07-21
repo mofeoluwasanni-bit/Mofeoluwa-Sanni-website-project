@@ -16,7 +16,7 @@ import {
   ShieldCheck,
   Snowflake,
 } from "lucide-react";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { Fragment, ReactNode, useEffect, useRef, useState } from "react";
 
 const SHOP_URL = "https://shop.tiktok.com/us/pdp/1732474986384560309";
 const TIKTOK_PROFILE_URL = "https://www.tiktok.com/@sanni.co2";
@@ -190,12 +190,23 @@ function Character({ progress, index, total, character, emphasized = false }: { 
 function AnimatedText({ children, emphasis = "" }: { children: string; emphasis?: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.92", "end 0.35"] });
-  const characters = children.split("");
+  const words = Array.from(children.matchAll(/\S+/g), (match) => ({
+    word: match[0],
+    start: match.index ?? 0,
+  }));
 
   return (
-    <p ref={ref} className="animated-text">
-      {characters.map((character, index) => (
-        <Character key={`${character}-${index}`} progress={scrollYProgress} index={index} total={characters.length} character={character} emphasized={index < emphasis.length} />
+    <p ref={ref} className="animated-text" aria-label={children}>
+      {words.map(({ word, start }, wordIndex) => (
+        <Fragment key={`${word}-${wordIndex}`}>
+          <span className="animated-word" aria-hidden="true">
+            {Array.from(word).map((character, characterIndex) => {
+              const index = start + characterIndex;
+              return <Character key={`${character}-${index}`} progress={scrollYProgress} index={index} total={children.length} character={character} emphasized={index < emphasis.length} />;
+            })}
+          </span>
+          {wordIndex < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
     </p>
   );
@@ -422,7 +433,7 @@ function MagSafeGuideSection() {
           <span className="magsafe-guide-eyebrow">Included with every bottle</span>
           <h2 id="magsafe-guide-title">One bottle.<br /><em>Every phone.</em></h2>
           <p>
-            Your SANNI arrives with a black MagSafe adapter ring already resting on the lid magnet, so magnetic and non-magnetic phones can both connect.
+            Your bottle arrives with a black MagSafe adapter ring already resting on the lid magnet, so magnetic and non-magnetic phones can both connect.
           </p>
           <div className="magsafe-direct-note">
             <span className="magsafe-direct-icon" aria-hidden="true"><i /></span>
@@ -608,7 +619,7 @@ function AboutSection() {
       <div className="about-content">
         <FadeIn y={40}><h2 className="section-display hero-heading">ABOUT IT</h2></FadeIn>
         <AnimatedText emphasis="This bottle does it all.">
-          {"This bottle does it all. It's comfortable to hold, built to last through daily use, and keeps your drinks cold or hot for hours at a time. No leaks, no spills, no mess to worry about — and thanks to the magnetic lid, your phone snaps right on top whenever you need it close by. Simple to use, reliable every time, and made to fit effortlessly into your everyday routine."}
+          {"This bottle does it all. It's comfortable to hold, built to last through daily use, and features a magnetic lid that keeps your phone securely mounted and within easy reach whenever you need it. It keeps drinks cold or hot for up to 24 hours, stays completely leakproof, and is designed to fit effortlessly into your everyday routine."}
         </AnimatedText>
         <FadeIn delay={0.25} y={20}><ShopButton /></FadeIn>
       </div>
