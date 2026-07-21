@@ -25,19 +25,19 @@ const heroCampaigns = [
   {
     name: "Pink",
     src: "/images/sanni-campaign-blush-way-fade-v3.png",
-    mobileSrc: "/images/sanni-campaign-blush-mobile-v1.png",
+    mobileSrc: "/images/sanni-campaign-blush-mobile-v2.png",
     swatch: "#d8b5b0",
   },
   {
     name: "Black",
     src: "/images/sanni-campaign-obsidian-way-fade-v3.png",
-    mobileSrc: "/images/sanni-campaign-obsidian-mobile-v1.png",
+    mobileSrc: "/images/sanni-campaign-obsidian-mobile-v2.png",
     swatch: "#222321",
   },
   {
     name: "Cream White",
     src: "/images/sanni-campaign-porcelain-way-fade-v3.png",
-    mobileSrc: "/images/sanni-campaign-porcelain-mobile-v1.png",
+    mobileSrc: "/images/sanni-campaign-porcelain-mobile-v2.png",
     swatch: "#eee9dc",
   },
 ] as const;
@@ -353,12 +353,12 @@ function HeroSection() {
       </FadeIn>
 
       <div className="hero-mobile-copy">
-        <span>SANNI</span>
+        <span className="hero-mobile-wordmark">SANNI</span>
         <h1 aria-label="Your bottle. Your way.">
           <span>Your bottle.</span>
           <span>Your <em>way.</em></span>
         </h1>
-        <p>Made for every moment.</p>
+        <p className="hero-mobile-tagline">Made for every moment.</p>
       </div>
 
       <button className="hero-bottle-hotspot" type="button" onClick={nextColor} aria-label={`Change bottle color. Current color: ${current.name}`}>

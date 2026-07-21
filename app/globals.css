@@ -1772,48 +1772,104 @@ img {
   }
 
   .hero-campaign-image {
-    object-fit: contain;
+    object-fit: cover;
     object-position: center top;
+  }
+
+  .hero-campaign-frame {
+    bottom: 110px;
+    overflow: hidden;
   }
 
   .hero-mobile-copy {
     position: absolute;
-    bottom: 142px;
+    top: 48.5svh;
+    right: 0;
+    bottom: auto;
     left: 20px;
-    right: 20px;
     z-index: 18;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     color: #242522;
+    pointer-events: none;
   }
 
-  .hero-mobile-copy span,
-  .hero-mobile-copy p {
-    font-size: 0.58rem;
-    font-weight: 500;
-    letter-spacing: 0.24em;
+  .hero-mobile-wordmark,
+  .hero-mobile-tagline {
+    font-weight: 600;
     text-transform: uppercase;
   }
 
+  .hero-mobile-wordmark {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: block;
+    width: max-content;
+    font-family: var(--font-kanit), "Arial Narrow", sans-serif;
+    font-size: clamp(1.38rem, 5.9vw, 1.58rem);
+    font-weight: 500;
+    letter-spacing: 0.58em;
+    line-height: 1;
+  }
+
+  .hero-mobile-wordmark::before {
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #242522 0%, #242522 64%, rgba(36, 37, 34, 0) 100%);
+    content: "";
+  }
+
   .hero-mobile-copy h1 {
-    margin: 13px 0 12px;
+    position: static;
+    margin: clamp(24px, 3.4svh, 29px) 0 0;
     width: fit-content;
-    max-width: 100%;
-    font-size: clamp(1.9rem, 9.6vw, 2.9rem);
-    font-weight: 400;
-    letter-spacing: -0.015em;
-    line-height: 1.02;
+    max-width: 48vw;
+    font-size: clamp(1.28rem, 5.8vw, 1.65rem);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    line-height: 1.05;
     text-transform: uppercase;
   }
 
   .hero-mobile-copy h1 > span {
     display: block;
+    font: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
     white-space: nowrap;
+  }
+
+  .hero-mobile-copy h1 > span + span {
+    margin-top: 0.34em;
   }
 
   .hero-mobile-copy h1 em {
     font-family: Georgia, serif;
     font-weight: 400;
+    letter-spacing: 0.02em;
     text-transform: none;
+  }
+
+  .hero-mobile-tagline {
+    position: static;
+    margin: clamp(19px, 2.7svh, 23px) 0 0;
+    font-size: clamp(0.72rem, 3vw, 0.82rem);
+    font-weight: 500;
+    letter-spacing: 0.17em;
+    white-space: nowrap;
+  }
+
+  .hero-mobile-tagline::after {
+    display: block;
+    width: clamp(38px, 10.5vw, 44px);
+    height: 1px;
+    margin-top: clamp(13px, 1.9svh, 17px);
+    background: #242522;
+    content: "";
   }
 
   .hero-bottle-hotspot {
@@ -1838,7 +1894,7 @@ img {
   }
 
   .hero-primary-action {
-    bottom: 72px;
+    bottom: 142px;
     left: 18px;
   }
 
@@ -1865,14 +1921,32 @@ img {
   }
 
   .hero-mobile-copy {
-    right: 16px;
-    bottom: 138px;
+    top: 48svh;
+    right: 0;
+    bottom: auto;
     left: 16px;
   }
 
   .hero-mobile-copy h1 {
-    font-size: clamp(1.78rem, 9.2vw, 2.18rem);
-    letter-spacing: -0.01em;
+    margin-top: clamp(21px, 3.1svh, 25px);
+    max-width: 47vw;
+    font-size: clamp(1.12rem, 5.55vw, 1.35rem);
+    letter-spacing: 0.09em;
+  }
+
+  .hero-mobile-tagline {
+    margin-top: clamp(16px, 2.5svh, 20px);
+    font-size: clamp(0.66rem, 2.8vw, 0.74rem);
+  }
+
+  .hero-mobile-wordmark {
+    top: auto;
+    left: auto;
+    font-size: clamp(1.28rem, 5.75vw, 1.45rem);
+  }
+
+  .hero-primary-action {
+    bottom: 126px;
   }
 }
 
