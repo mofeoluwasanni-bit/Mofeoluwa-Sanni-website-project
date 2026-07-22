@@ -88,6 +88,26 @@ img {
   transform: translateY(-2px);
 }
 
+.shop-button-label,
+.shop-button-price,
+.shop-button-old-price {
+  white-space: nowrap;
+}
+
+.shop-button-price {
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.shop-button-old-price {
+  color: currentColor;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  opacity: 0.48;
+  text-decoration-line: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
 .shop-button:focus-visible,
 .hero-nav a:focus-visible,
 .bottle-model:focus-visible,
@@ -532,6 +552,38 @@ img {
   padding: clamp(16px, 2vw, 28px) 20px 0;
 }
 
+.scarcity-alert {
+  position: absolute;
+  top: 86px;
+  left: 50%;
+  z-index: 40;
+  padding: 8px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  border-radius: 999px;
+  background: #20211f;
+  box-shadow: 0 8px 24px rgba(32, 33, 31, 0.2);
+  color: #f7f4ec;
+  font-size: clamp(0.56rem, 0.72vw, 0.68rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  pointer-events: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: scarcity-jump 1.15s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes scarcity-jump {
+  0%, 100% { transform: translate(-50%, 0); }
+  36% { transform: translate(-50%, -6px); }
+  54% { transform: translate(-50%, 0); }
+  70% { transform: translate(-50%, -3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scarcity-alert { animation: none; transform: translateX(-50%); }
+}
+
 .hero-nav-cluster {
   display: flex;
   align-items: center;
@@ -834,10 +886,16 @@ img {
 }
 
 .magsafe-guide-steps {
+  position: relative;
   display: grid;
   margin-top: 18px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+}
+
+.magsafe-carousel-prompt,
+.magsafe-carousel-controls {
+  display: none;
 }
 
 .magsafe-guide-instruction-title {
@@ -1090,11 +1148,101 @@ img {
   }
 
   .magsafe-guide-steps {
-    grid-template-columns: 1fr;
+    display: flex;
+    width: calc(100% + 18px);
+    margin-right: -18px;
+    padding: 4px 40px 24px 0;
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+    scroll-padding-left: 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    touch-action: pan-x pan-y;
+  }
+
+  .magsafe-guide-steps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .magsafe-carousel-prompt {
+    display: flex;
+    margin-top: 18px;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(37, 38, 34, 0.58);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .magsafe-carousel-prompt span::after {
+    margin-left: 8px;
+    content: "→";
+  }
+
+  .magsafe-carousel-prompt i {
+    font-style: normal;
+    letter-spacing: 0.12em;
   }
 
   .magsafe-step {
+    flex: 0 0 min(82vw, 360px);
     min-height: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    box-shadow: 0 20px 46px rgba(68, 61, 52, 0.13);
+  }
+
+  .magsafe-carousel-controls {
+    display: flex;
+    margin-top: 2px;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .magsafe-carousel-controls > button {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid rgba(37, 38, 34, 0.12);
+    border-radius: 50%;
+    background: rgba(247, 244, 236, 0.82);
+    color: #252622;
+    font-size: 1rem;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .magsafe-carousel-controls > button:active {
+    transform: scale(0.94);
+  }
+
+  .magsafe-carousel-controls > button:disabled {
+    opacity: 0.28;
+  }
+
+  .magsafe-carousel-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .magsafe-carousel-dots button {
+    width: 7px;
+    height: 7px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(37, 38, 34, 0.22);
+    transition: width 180ms ease, background-color 180ms ease;
+  }
+
+  .magsafe-carousel-dots button.is-active {
+    width: 22px;
+    background: #252622;
   }
 }
 
@@ -1745,6 +1893,10 @@ img {
   .hero-nav-wrap {
     top: 0;
     padding: 14px 12px 0;
+  }
+
+  .scarcity-alert {
+    top: 68px;
   }
 
   .hero-nav-cluster {

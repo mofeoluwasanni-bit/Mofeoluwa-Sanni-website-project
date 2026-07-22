@@ -171,10 +171,12 @@ function FadeIn({
   );
 }
 
-function ShopButton({ label = "Shop SANNI", outline = false }: { label?: string; outline?: boolean }) {
+function ShopButton({ outline = false }: { outline?: boolean }) {
   return (
     <a className={outline ? "shop-button shop-button--outline" : "shop-button"} href={SHOP_URL} target="_blank" rel="noreferrer">
-      <span>{label}</span>
+      <span className="shop-button-label">Get yours</span>
+      <span className="shop-button-price">$18.76</span>
+      <del className="shop-button-old-price">$25.35</del>
       <ArrowUpRight size={18} strokeWidth={1.8} aria-hidden="true" />
     </a>
   );
@@ -329,6 +331,8 @@ function HeroSection() {
 
   return (
     <section className="hero-section min-h-screen" id="top">
+      <div className="scarcity-alert" role="status">RUNNING OUT FAST!!!!</div>
+
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
           className="hero-campaign-frame"
@@ -391,7 +395,7 @@ function HeroSection() {
         <span>{current.name}</span>
       </div>
 
-      <FadeIn delay={0.45} y={20} className="hero-primary-action"><ShopButton label="Shop SANNI" /></FadeIn>
+      <FadeIn delay={0.45} y={20} className="hero-primary-action"><ShopButton /></FadeIn>
       <a className="hero-scroll-cue" href="#gallery" aria-label="Scroll to discover SANNI"><span>Scroll</span><i /></a>
     </section>
   );
@@ -426,6 +430,31 @@ function MarqueeSection() {
 }
 
 function MagSafeGuideSection() {
+  const [activeGuideStep, setActiveGuideStep] = useState(0);
+  const guideStepsRef = useRef<HTMLDivElement>(null);
+
+  const scrollToGuideStep = (index: number) => {
+    const container = guideStepsRef.current;
+    const cards = container?.querySelectorAll<HTMLElement>(".magsafe-step");
+    const card = cards?.[index];
+
+    if (container && card) {
+      container.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+    }
+  };
+
+  const updateActiveGuideStep = () => {
+    const container = guideStepsRef.current;
+    if (!container) return;
+
+    const cards = Array.from(container.querySelectorAll<HTMLElement>(".magsafe-step"));
+    const closestStep = cards.reduce((closest, card, index) => (
+      Math.abs(card.offsetLeft - container.scrollLeft) < Math.abs(cards[closest].offsetLeft - container.scrollLeft) ? index : closest
+    ), 0);
+
+    setActiveGuideStep(closestStep);
+  };
+
   return (
     <section className="magsafe-guide-section" aria-labelledby="magsafe-guide-title">
       <div className="magsafe-guide-shell">
@@ -448,7 +477,18 @@ function MagSafeGuideSection() {
           <h3>For Androids, older phones, and cases without built-in magnetic attachment.</h3>
         </FadeIn>
 
-        <div className="magsafe-guide-steps" aria-label="How to use the included adapter ring with a non-magnetic phone">
+        <div className="magsafe-carousel-prompt" aria-hidden="true">
+          <span>Swipe for the next instruction</span>
+          <i>{String(activeGuideStep + 1).padStart(2, "0")} / 04</i>
+        </div>
+
+        <div
+          ref={guideStepsRef}
+          className="magsafe-guide-steps"
+          aria-label="How to use the included adapter ring with a non-magnetic phone"
+          onScroll={updateActiveGuideStep}
+          tabIndex={0}
+        >
           <FadeIn delay={0.08} y={24} className="magsafe-step">
             <div className="magsafe-step-head"><span>01</span><small>Included</small></div>
             <div className="magsafe-step-photo">
@@ -512,6 +552,27 @@ function MagSafeGuideSection() {
             <h3>Attach it to your phone</h3>
             <p>Center and press it firmly onto a clean, dry phone or case. Then snap it onto the SANNI lid.</p>
           </FadeIn>
+        </div>
+
+        <div className="magsafe-carousel-controls" aria-label="Instruction carousel controls">
+          <button type="button" aria-label="Previous instruction" disabled={activeGuideStep === 0} onClick={() => scrollToGuideStep(activeGuideStep - 1)}>
+            <span aria-hidden="true">←</span>
+          </button>
+          <div className="magsafe-carousel-dots">
+            {[0, 1, 2, 3].map((index) => (
+              <button
+                key={index}
+                type="button"
+                className={index === activeGuideStep ? "is-active" : undefined}
+                aria-label={`Go to instruction ${index + 1}`}
+                aria-current={index === activeGuideStep ? "step" : undefined}
+                onClick={() => scrollToGuideStep(index)}
+              />
+            ))}
+          </div>
+          <button type="button" aria-label="Next instruction" disabled={activeGuideStep === 3} onClick={() => scrollToGuideStep(activeGuideStep + 1)}>
+            <span aria-hidden="true">→</span>
+          </button>
         </div>
       </div>
     </section>
@@ -592,7 +653,7 @@ function ColorwaySection() {
           {current.comingSoon ? (
             <span className="coming-soon-button" role="status">Mint Blue &mdash; Coming Soon</span>
           ) : (
-            <ShopButton label={`Shop ${current.shortName}`} />
+            <ShopButton />
           )}
         </FadeIn>
       </div>
@@ -678,10 +739,10 @@ export default function Home() {
   return (
     <main className="sanni-site overflow-x-clip">
       <HeroSection />
-      <MagSafeGuideSection />
       <MarqueeSection />
-      <ColorwaySection />
+      <MagSafeGuideSection />
       <AboutSection />
+      <ColorwaySection />
       <FeaturesSection />
       <TikTokCallout />
       <SiteFooter />
